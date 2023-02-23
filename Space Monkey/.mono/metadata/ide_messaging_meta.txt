@@ -1,0 +1,2 @@
+﻿57088
+C:/Program Files/GodotMono/Godot.exe
