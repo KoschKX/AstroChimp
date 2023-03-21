@@ -9,12 +9,14 @@ var velocity = Vector2.ZERO
 var is_jumping = false
 var planets: Array
 var current_planet: Node
+var current_orbit: Node
 var time_delta = 0
 
 
 func _ready():
 	planets = get_node("/root/MainLevel/Planets").get_children()
 	current_planet = planets[0]
+	current_orbit = current_planet.get_node("Orbit")
 	_get_closest_planet(current_planet)
 	_start_closest_planet_timer()
 
@@ -36,20 +38,24 @@ func get_input():
 	else: 
 		$AnimatedSprite.play("Walk")
 
+
+func _physics_process_old(delts):
+	get_input();
+	velocity = move_and_slide(velocity,Vector2.UP)
+
 func _physics_process(delta):
 	get_input()
 	
 	time_delta += delta
 
-	var gravity_dir = current_planet.global_transform.origin - global_transform.origin
-	rotation = gravity_dir.angle() - PI/2
+	var gravity_dir = current_orbit.gravity_vec
+	rotation = (current_orbit.gravity_vec - global_transform.origin).angle() - PI/2
 	
 	velocity.y += gravity * delta
 	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
 	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, PI/3)
 	velocity = velocity.rotated(-rotation)
 	
-
 	if is_on_floor():
 		is_jumping = false
 		if Input.is_action_just_pressed("jump"):
