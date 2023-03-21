@@ -16,11 +16,11 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _physics_process(delta):
-	time_delta += delta
+#func _physics_process(delta):
+	#time_delta += delta
 	
-	var gravity_dir = current_planet.global_transform.origin - global_transform.origin
-	rotation = gravity_dir.angle() - PI/2
+	#var gravity_dir = current_planet.global_transform.origin - global_transform.origin
+	#rotation = gravity_dir.angle() - PI/2
 	
 	#Physics2DServer.area_set_param(current_planet.get_node("Orbit").space, Physics2DServer.AREA_PARAM_GRAVITY_VECTOR, gravity_dir*2000)
 		
