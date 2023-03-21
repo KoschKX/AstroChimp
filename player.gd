@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 export (int) var speed = 1200
 export (int) var jump_speed = -1800
+export (int) var booster_speed = -1800
 export (int) var gravity = 4000
 
 var velocity = Vector2.ZERO
@@ -54,8 +55,10 @@ func _physics_process(delta):
 			is_jumping = true
 			velocity.y = jump_speed
 			$AnimatedSprite.play("Jump")
+	else:
+		if Input.is_action_just_pressed("jump"):
+			velocity.y += booster_speed
 			
-
 
 func _get_closest_planet(smallest):
 	var new_smallest = smallest
