@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
 export (int) var speed = 1200
-export (int) var jump_speed = -1800
-export (int) var booster_speed = -1800
-export (int) var gravity = 4000
+export (int) var jump_force = -2500
+export (int) var booster_force = -3000
+export (int) var gravity_scale = 50
 
 var velocity = Vector2.ZERO
 var is_jumping = false
@@ -51,20 +51,21 @@ func _physics_process(delta):
 	var gravity_dir = current_orbit.gravity_vec
 	rotation = (current_orbit.gravity_vec - global_transform.origin).angle() - PI/2
 	
-	velocity.y += gravity * delta
+	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
+	
 	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, PI/3)
+	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, PI/3)
 	velocity = velocity.rotated(-rotation)
 	
 	if is_on_floor():
 		is_jumping = false
 		if Input.is_action_just_pressed("jump"):
 			is_jumping = true
-			velocity.y = jump_speed
+			velocity.y = jump_force
 			$AnimatedSprite.play("Jump")
 	else:
 		if Input.is_action_just_pressed("jump"):
-			velocity.y += booster_speed
+			velocity.y += booster_force
 			
 
 func _get_closest_planet(smallest):
