@@ -1,19 +1,54 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://moon.0001.png" type="Texture" id=1]
-[ext_resource path="res://ChimpA.png" type="Texture" id=2]
+[ext_resource path="res://Spaceman.png" type="Texture" id=2]
 [ext_resource path="res://player.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 279, 284, 278, 284 )
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 41, 13, 102, 154 )
+region = Rect2( 1, 0, 278, 284 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 1, 0, 278, 284 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 279, 0, 278, 284 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 557, 0, 278, 284 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 1, 284, 278, 284 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 7 ) ],
 "loop": true,
-"name": "default",
+"name": "Stand",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "Walk",
 "speed": 5.0
 } ]
 
@@ -47,6 +82,7 @@ gravity = 2000
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 4 )
+animation = "Jump"
 speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]

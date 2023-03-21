@@ -22,7 +22,7 @@ func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("walk_right"):
 		velocity.x += speed
-		$AnimatedSprite.play()
+		$AnimatedSprite.play("Walk")
 		$AnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
@@ -30,7 +30,10 @@ func get_input():
 		$AnimatedSprite.flip_h = true
 	else:
 		$AnimatedSprite.playing = false
-
+	if is_on_floor() == false:
+		$AnimatedSprite.play("Jump")
+	else: 
+		$AnimatedSprite.play("Walk")
 
 func _physics_process(delta):
 	get_input()
@@ -50,6 +53,8 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			is_jumping = true
 			velocity.y = jump_speed
+			$AnimatedSprite.play("Jump")
+			
 
 
 func _get_closest_planet(smallest):
