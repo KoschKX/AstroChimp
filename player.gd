@@ -48,6 +48,7 @@ func _physics_process(delta):
 	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
 	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, PI/3)
 	velocity = velocity.rotated(-rotation)
+	
 
 	if is_on_floor():
 		is_jumping = false
