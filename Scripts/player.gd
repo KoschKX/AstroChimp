@@ -76,7 +76,7 @@ func _physics_process(delta):
 	print(col_count)
 	
 	if col_count:
-		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, PI/12, false)
+		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 4, PI/12, false)
 	else:
 		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, PI/2, false)
 		
