@@ -1,24 +1,19 @@
 extends KinematicBody2D
 
 export (int) var speed = 1200
-export (int) var jump_force = -2500
-export (int) var booster_force = -3000
-export (int) var gravity_scale = 50
-export (int) var slope_threshold = 45
+export (int) var jump_speed = -1800
+export (int) var gravity = 4000
 
 var velocity = Vector2.ZERO
 var is_jumping = false
 var planets: Array
 var current_planet: Node
-var current_orbit: Node
 var time_delta = 0
 
-var debug_line = Vector2.ZERO
 
 func _ready():
 	planets = get_node("/root/MainLevel/Planets").get_children()
 	current_planet = planets[0]
-	current_orbit = current_planet.get_node("Orbit")
 	_get_closest_planet(current_planet)
 	_start_closest_planet_timer()
 
@@ -27,7 +22,7 @@ func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("walk_right"):
 		velocity.x += speed
-		$AnimatedSprite.play("Walk")
+		$AnimatedSprite.play()
 		$AnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
@@ -35,49 +30,27 @@ func get_input():
 		$AnimatedSprite.flip_h = true
 	else:
 		$AnimatedSprite.playing = false
-	if is_on_floor() == false:
-		$AnimatedSprite.play("Jump")
-	else: 
-		$AnimatedSprite.play("Walk")
 
-
-func _physics_process_old(delts):
-	get_input();
-	velocity = move_and_slide(velocity,Vector2.UP)
-
-func _draw():
-	if debug_line:
-		draw_line(Vector2(0,0), debug_line, Color(255, 0, 0), 1)
 
 func _physics_process(delta):
 	get_input()
 	
 	time_delta += delta
 
-	var gravity_dir = current_orbit.gravity_vec
-	rotation = (current_orbit.gravity_vec - transform.origin).angle() - PI/2
+	var gravity_dir = current_planet.global_transform.origin - global_transform.origin
+	rotation = gravity_dir.angle() - PI/2
 	
-	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
-	
-	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	var snap = transform.y * 300 if !is_jumping else Vector2.ZERO
-	var max_slope = (PI/3)
-	#var max_slope = deg2rad(slope_threshold);
-	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, max_slope, false)
+	velocity.y += gravity * delta
+	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
+	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, PI/3)
 	velocity = velocity.rotated(-rotation)
-	
-	debug_line=transform.y * 300
-	
+
 	if is_on_floor():
 		is_jumping = false
 		if Input.is_action_just_pressed("jump"):
 			is_jumping = true
-			velocity.y = jump_force
-			$AnimatedSprite.play("Jump")
-	else:
-		if Input.is_action_just_pressed("jump"):
-			velocity.y += booster_force
-			
+			velocity.y = jump_speed
+
 
 func _get_closest_planet(smallest):
 	var new_smallest = smallest
