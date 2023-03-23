@@ -55,18 +55,19 @@ func _physics_process(delta):
 	time_delta += delta
 
 	var gravity_dir = current_orbit.gravity_vec
-	rotation = (current_orbit.gravity_vec - transform.origin).angle() - PI/2
+	#rotation = (current_planet.global_transform.origin - transform.origin).angle() - PI/2
+	rotation = (gravity_dir - transform.origin).angle() - PI/2
 	
 	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
 	
 	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
 	var snap = transform.y * 300 if !is_jumping else Vector2.ZERO
-	var max_slope = (PI/3)
+	var max_slope = (PI/2)
 	#var max_slope = deg2rad(slope_threshold);
 	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, max_slope, false)
 	velocity = velocity.rotated(-rotation)
 	
-	debug_line=transform.y * 300
+	#debug_line=transform.y * 300
 	
 	if is_on_floor():
 		is_jumping = false
