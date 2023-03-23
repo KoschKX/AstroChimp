@@ -62,18 +62,24 @@ func _physics_process(delta):
 	
 	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
 	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	var max_slope = (PI/2)
 	#var max_slope = deg2rad(slope_threshold);
-
+	
+	var col_count=0
 	if velocity: # true if collided
 		for c in get_slide_count():
 			var col = get_slide_collision(c)
 			if col.get_collider() is RigidBody2D:
+				col_count+=1;
 				var pos = col.position - col.collider.position;
-				#col.collider.apply_impulse(-col.normal.rotated(transform.origin.angle() + PI/2) * inertia,pos)
 				col.collider.apply_central_impulse(-col.normal * inertia)
-				
-	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, max_slope, false)
+	
+	print(col_count)
+	
+	if col_count:
+		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, PI/12, false)
+	else:
+		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, PI/2, false)
+		
 	velocity = velocity.rotated(-rotation)	
 		
 	#debug_line=transform.y * 300
