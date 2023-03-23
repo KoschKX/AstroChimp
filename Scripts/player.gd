@@ -61,7 +61,7 @@ func _physics_process(delta):
 	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
 	
 	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
+	var snap = transform.y * 32 if !is_jumping else Vector2.ZERO
 	#var max_slope = deg2rad(slope_threshold);
 	
 	var col_count=0
