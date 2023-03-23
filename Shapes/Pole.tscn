@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Game Objects.0001.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/pushable.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=68]
+extents = Vector2( 813.052, 30.4985 )
+
+[node name="Pole" type="RigidBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -3.81323, -4.66448 )
+scale = Vector2( 2.70847, 2.70847 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 576.276, 264.585, 599.232, 32.1017 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.09326, -0.304081 )
+shape = SubResource( 68 )

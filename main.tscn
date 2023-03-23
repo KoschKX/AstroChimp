@@ -1,245 +1,14 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://moon.0001.png" type="Texture" id=1]
-[ext_resource path="res://Spaceman.png" type="Texture" id=2]
-[ext_resource path="res://player.gd" type="Script" id=3]
-[ext_resource path="res://Circle.png" type="Texture" id=4]
-[ext_resource path="res://pushable.gd" type="Script" id=5]
-[ext_resource path="res://worm.png" type="Texture" id=6]
-[ext_resource path="res://RigidBody2D2.gd" type="Script" id=7]
-
-[sub_resource type="AtlasTexture" id=25]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 3840, 976, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=26]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 5760, 976, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=27]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 7680, 976, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=28]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 9600, 976, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=29]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 11520, 976, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=30]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 1952, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=31]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 1920, 1952, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=32]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 3840, 1952, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=33]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 5760, 1952, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=34]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 7680, 1952, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=35]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 9600, 1952, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=36]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 11520, 1952, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=37]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 2928, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=38]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 1920, 2928, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=39]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 3840, 2928, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=40]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 5760, 2928, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=41]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 7680, 2928, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=42]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 9600, 2928, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=43]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 11520, 2928, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=44]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 3904, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=45]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 1920, 3904, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=46]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 3840, 3904, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=47]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 5760, 3904, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=48]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 7680, 3904, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=49]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 9600, 3904, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=50]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 11520, 3904, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=51]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 4880, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=52]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 1920, 4880, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=53]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 3840, 4880, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=54]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 5760, 4880, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=55]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 7680, 4880, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=56]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 9600, 4880, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=57]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 11520, 4880, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=58]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 0, 5856, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=59]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 1920, 5856, 1920, 976 )
-
-[sub_resource type="AtlasTexture" id=60]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 3840, 5856, 1920, 976 )
-
-[sub_resource type="SpriteFrames" id=61]
-animations = [ {
-"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 30.0
-} ]
-
-[sub_resource type="CircleShape2D" id=15]
-radius = 398.012
-
-[sub_resource type="AtlasTexture" id=20]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 227, 265, 227, 265 )
-
-[sub_resource type="AtlasTexture" id=22]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 227, 265 )
-
-[sub_resource type="AtlasTexture" id=23]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 227, 265 )
-
-[sub_resource type="AtlasTexture" id=24]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 227, 0, 227, 265 )
-
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ SubResource( 20 ) ],
-"loop": true,
-"name": "Jump",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 22 ) ],
-"loop": true,
-"name": "Stand",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 23 ), SubResource( 24 ) ],
-"loop": true,
-"name": "Walk",
-"speed": 5.0
-} ]
-
-[sub_resource type="CapsuleShape2D" id=5]
-radius = 23.1433
-height = 78.2053
+[ext_resource path="res://Assets/moon.0001.png" type="Texture" id=1]
+[ext_resource path="res://Shapes/Pole.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Shapes/Rectangle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Characters/Worm.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Shapes/Block.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Shapes/Egg.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Shapes/Banana.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Shapes/Giant Block.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CircleShape2D" id=14]
 radius = 11722.8
@@ -261,63 +30,35 @@ scale = Vector2( 0.05, 0.05 )
 space_override = 3
 gravity_point = true
 
-[node name="RigidBody2D2" type="KinematicBody2D" parent="Planets/Planet/Orbit"]
-position = Vector2( -1292.82, 37.0313 )
-rotation = 3.14159
-scale = Vector2( 20, 20 )
-script = ExtResource( 7 )
+[node name="Player" parent="Planets/Planet/Orbit" instance=ExtResource( 7 )]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Planets/Planet/Orbit/RigidBody2D2"]
-position = Vector2( -153.733, -514.026 )
-rotation = -3.12704
-scale = Vector2( 0.31693, 0.31693 )
-frames = SubResource( 61 )
-animation = "Idle"
-playing = true
-flip_v = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Planets/Planet/Orbit/RigidBody2D2"]
-polygon = PoolVector2Array( 116.268, -369.277, 86.2075, -362.034, -144.421, -367.317, -168.273, -435.335, -232.805, -508.635, -313.13, -508.526, -376.9, -523.012, -354.626, -567.068, -317.323, -584.658, -278.876, -583.895, -235.691, -578.395, -197.298, -562.711, -170.015, -526.66, -142.079, -490.01, -119.533, -464.687, -103.686, -424.879, -46.9412, -420.086, -7.4052, -408.432, 21.2939, -397.377, 66.3303, -379.079, 100.996, -374.569, 133.913, -404.021 )
-
-[node name="RigidBody2D" type="RigidBody2D" parent="Planets/Planet/Orbit"]
-position = Vector2( 3402.51, -7438.91 )
-gravity_scale = 50.0
-script = ExtResource( 5 )
-
-[node name="Sprite" type="Sprite" parent="Planets/Planet/Orbit/RigidBody2D"]
-scale = Vector2( 12, 13 )
-texture = ExtResource( 4 )
-region_filter_clip = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Planet/Orbit/RigidBody2D"]
-shape = SubResource( 15 )
-
-[node name="Player" type="KinematicBody2D" parent="Planets/Planet/Orbit"]
-position = Vector2( 1442.04, -7970.42 )
-scale = Vector2( 4.87943, 4.87943 )
-script = ExtResource( 3 )
-speed = 2500
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Planets/Planet/Orbit/Player"]
-frames = SubResource( 4 )
-animation = "Jump"
-speed_scale = 2.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Planet/Orbit/Player"]
-position = Vector2( 0.906616, 12.6926 )
-shape = SubResource( 5 )
-
-[node name="Camera2D" type="Camera2D" parent="Planets/Planet/Orbit/Player"]
-rotating = true
-current = true
-zoom = Vector2( 10, 10 )
-limit_smoothed = true
-smoothing_enabled = true
+[node name="Worm" parent="Planets/Planet/Orbit" instance=ExtResource( 4 )]
 
 [node name="OrbitRadius" type="CollisionShape2D" parent="Planets/Planet/Orbit"]
+visible = false
 shape = SubResource( 14 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Planets/Planet"]
+visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Planets/Planet/StaticBody2D"]
-polygon = PoolVector2Array( 293.145, 143.411, 295.759, 171.511, 285.303, 202.824, 266.352, 234.191, 240.266, 253.088, 203.072, 261.583, 170.397, 292.243, 126.668, 322.957, 65.3483, 351.656, 3.97451, 366.686, -67.8551, 376.488, -167.73, 365.379, -248.654, 330.144, -296.958, 296.816, -328.925, 274.652, -353.757, 244.591, -373.961, 214.585, -390.298, 182.618, -405.329, 152.558, -415.73, 131.7, -395.526, 131.047, -385.724, 121.245, -382.456, 66.4058, -395.526, 22.0228, -409.848, -28.8951, -425.532, -29.5486, -449.058, -27.5882, -459.459, -14.5184, -452.325, -90.9225, -426.185, -160.084, -418.343, -175.114, -423.571, -185.57, -428.799, -202.506, -420.957, -221.457, -412.461, -239.102, -394.218, -234.527, -373.96, -237.794, -357.024, -244.329, -351.142, -261.919, -343.3, -285.445, -321.081, -303.035, -251.92, -353.299, -176.169, -385.973, -93.2849, -397.681, -33.2181, -395.721, 55.5478, -376.17, 134.511, -338.322, 208.955, -282.829, 256.605, -222.763, 297.72, -145.759, 265.1, -128.769, 242.228, -98.1091, 242.881, -78.5044, 250.07, -45.2307, 265.699, -31.5074, 293.145, -16.477, 308.829, -13.863, 310.136, 35.7479, 308.829, 67.7145, 303.601, 93.7997, 291.185, 122.553 )
+visible = false
+polygon = PoolVector2Array( 293.145, 143.411, 295.759, 171.511, 285.303, 202.824, 266.352, 234.191, 240.266, 253.088, 203.072, 261.583, 170.397, 292.243, 126.668, 322.957, 65.3483, 351.656, 3.97451, 366.686, -67.8551, 376.488, -167.73, 365.379, -248.654, 330.144, -296.958, 296.816, -328.925, 274.652, -353.757, 244.591, -373.961, 214.585, -390.298, 182.618, -405.329, 152.558, -415.73, 131.7, -395.526, 131.047, -395.526, 22.0228, -409.848, -28.8951, -425.532, -29.5486, -449.058, -27.5882, -459.459, -14.5184, -452.325, -90.9225, -426.185, -160.084, -418.343, -175.114, -423.571, -185.57, -428.799, -202.506, -420.957, -221.457, -412.461, -239.102, -394.218, -234.527, -373.96, -237.794, -357.024, -244.329, -351.142, -261.919, -343.3, -285.445, -321.081, -303.035, -251.92, -353.299, -176.169, -385.973, -93.2849, -397.681, -33.2181, -395.721, 55.5478, -376.17, 134.511, -338.322, 208.955, -282.829, 256.605, -222.763, 297.72, -145.759, 265.1, -128.769, 242.228, -98.1091, 242.881, -78.5044, 250.07, -45.2307, 265.699, -31.5074, 293.145, -16.477, 308.829, -13.863, 310.136, 35.7479, 308.829, 67.7145, 303.601, 93.7997, 291.185, 122.553 )
+
+[node name="Egg" parent="." instance=ExtResource( 6 )]
+position = Vector2( 5144, -6283 )
+
+[node name="Banana" parent="." instance=ExtResource( 8 )]
+position = Vector2( -2007, -7095 )
+
+[node name="Block" parent="." instance=ExtResource( 5 )]
+position = Vector2( -3048, -6778 )
+
+[node name="Giant Block" parent="." instance=ExtResource( 9 )]
+position = Vector2( 8582, 2544 )
+
+[node name="Pole" parent="." instance=ExtResource( 2 )]
+position = Vector2( -5899, -4923 )
+
+[node name="Rectangle" parent="." instance=ExtResource( 3 )]
+position = Vector2( -7393, -1257 )

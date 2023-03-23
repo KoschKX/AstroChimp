@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Game Objects.0001.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/pushable.gd" type="Script" id=2]
+
+[node name="Banana" type="RigidBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 8.99609, -83.8359 )
+scale = Vector2( 2.70847, 2.70847 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 207.383, 402.801, 153.56, 167.183 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -2305.45, 7424.78 )
+polygon = PoolVector2Array( 2175.04, -7384.46, 2257.81, -7408.42, 2365.64, -7492.28, 2424.45, -7561.99, 2453.86, -7646.94, 2440.79, -7700.31, 2453.86, -7715.56, 2493.07, -7630.6, 2499.61, -7534.76, 2468.02, -7457.43, 2401.58, -7393.17, 2328.61, -7339.8, 2253.46, -7311.48, 2171.77, -7314.75, 2119.49, -7337.62, 2135.83, -7356.14 )
