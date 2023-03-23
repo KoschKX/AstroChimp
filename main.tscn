@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/moon.0001.png" type="Texture" id=1]
 [ext_resource path="res://Shapes/Pole.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Shapes/Banana.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Shapes/Giant Block.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Shapes/Giant Block.gd" type="Script" id=10]
 
 [sub_resource type="CircleShape2D" id=14]
 radius = 11722.8
@@ -48,6 +49,8 @@ position = Vector2( -3048, -6778 )
 
 [node name="Giant Block" parent="." instance=ExtResource( 9 )]
 position = Vector2( 8582, 2544 )
+gravity_scale = 50.0
+script = ExtResource( 10 )
 
 [node name="Pole" parent="." instance=ExtResource( 2 )]
 position = Vector2( -5899, -4923 )

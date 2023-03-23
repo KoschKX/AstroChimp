@@ -3,8 +3,8 @@ extends KinematicBody2D
 export (int) var speed = 1200
 export (int) var jump_force = -2500
 export (int) var booster_force = -3000
-export (int) var gravity_scale = 50
-export (int) var slope_threshold = 45
+export (int,0,100) var gravity_scale = 50
+export (int,0,200) var inertia = 100
 
 var velocity = Vector2.ZERO
 var is_jumping = false
@@ -61,12 +61,21 @@ func _physics_process(delta):
 	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
 	
 	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	var snap = transform.y * 300 if !is_jumping else Vector2.ZERO
+	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
 	var max_slope = (PI/2)
 	#var max_slope = deg2rad(slope_threshold);
-	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, max_slope, false)
-	velocity = velocity.rotated(-rotation)
-	
+
+	if velocity: # true if collided
+		for c in get_slide_count():
+			var col = get_slide_collision(c)
+			if col.get_collider() is RigidBody2D:
+				var pos = col.position - col.collider.position;
+				#col.collider.apply_impulse(-col.normal.rotated(transform.origin.angle() + PI/2) * inertia,pos)
+				col.collider.apply_central_impulse(-col.normal * inertia)
+				
+	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, max_slope, false)
+	velocity = velocity.rotated(-rotation)	
+		
 	#debug_line=transform.y * 300
 	
 	if is_on_floor():
