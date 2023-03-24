@@ -4,7 +4,7 @@ export (int) var gravity = 4000
 var velocity = Vector2.ZERO
 var time_delta = 0
 var current_planet: Node
-
+var picked = false
 var planets: Array
 
 func _ready():
@@ -56,3 +56,31 @@ func _start_closest_planet_timer():
 	timer.connect("timeout", self, "_get_closest_planet", [current_planet])
 	add_child(timer)
 	timer.start()
+
+#PICK UP SHIT
+func _physics_process(delta):
+	if picked == true:
+		self.position = get_node("res://Characters/Player.tscn").global_position2D
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_pick"):
+		var bodies = $Area2D.get_overlapping_bodies()
+		for body in bodies:
+			if body.name == "res://Characters/Player.tscn" and get_node("res://Characters/Player.tscn").canPick == true:
+				picked = true
+				get_node("res://Characters/Player.tscn").canPick = false
+	if Input.is_action_just_pressed("ui_drop") and picked == true:
+		picked = false
+		get_node("res://Characters/Player.tscn").canPick = true
+		if get_node("res://Characters/Player.tscn").sprite.flip_h == false:
+			apply_impulse(Vector2(), Vector2(90, -10))
+		else:
+			apply_impulse(Vector2(), Vector2(-90, -10))
+	if Input.is_action_just_pressed("ui_throw") and picked == true:
+		picked = false
+		get_node("res://Characters/Player.tscn").canPick = true
+		if get_node("res://Characters/Player.tscn").sprite.flip_h == false:
+			apply_impulse(Vector2(), Vector2(150, -200))
+		else:
+			apply_impulse(Vector2(), Vector2(-150, -200))
+	print("hello")
