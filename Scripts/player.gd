@@ -6,7 +6,7 @@ export (int) var booster_force = -3000
 export (int,0,100) var gravity_scale = 50
 export (int,0,200) var inertia = 100
 
-export (bool) var can_pick
+export (bool) var can_pick = true
 
 var velocity = Vector2.ZERO
 var is_jumping = false

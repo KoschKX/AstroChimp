@@ -79,8 +79,10 @@ func _input(event):
 	if Input.is_action_pressed("ui_pick"):
 		var bodies = self.get_node("Area2D").get_overlapping_bodies()
 		for body in bodies:
+			#print(body.name+" : "+player.name)
 			if body.name == player.name and player.can_pick == true:
 				if player.can_pick == true:
+					
 					picked = true
 					player.can_pick = false
 					self.add_collision_exception_with(player)
