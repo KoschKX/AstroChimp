@@ -6,6 +6,8 @@ export (int) var booster_force = -3000
 export (int,0,100) var gravity_scale = 50
 export (int,0,200) var inertia = 100
 
+export (bool) var can_pick
+
 var velocity = Vector2.ZERO
 var is_jumping = false
 var planets: Array
@@ -75,7 +77,7 @@ func _physics_process(delta):
 				var pos = col.position - col.collider.position;
 				col.collider.apply_central_impulse(-col.normal * inertia)
 	
-	print(col_count)
+	# print(col_count)
 	
 	if col_count:
 		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 4, PI/12, false)

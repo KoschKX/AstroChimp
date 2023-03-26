@@ -7,11 +7,15 @@ var current_planet: Node
 var picked = false
 var planets: Array
 
+var player;
+
 func _ready():
 	planets = get_node("/root/MainLevel/Planets").get_children()
 	current_planet = planets[0]
 	_get_closest_planet(current_planet)
 	_start_closest_planet_timer()
+	
+	player = get_node("/root/MainLevel/Player");
 
 #func _process(delta):
 #	pass
@@ -60,27 +64,43 @@ func _start_closest_planet_timer():
 #PICK UP SHIT
 func _physics_process(delta):
 	if picked == true:
-		self.position = get_node("res://Characters/Player.tscn").global_position2D
+		var sprite = player.get_node("AnimatedSprite");
+		var rect = sprite.get_sprite_frames().get_frame(sprite.get_animation(),sprite.frame).get_size()*(player.scale/2)
+		self.rotation = player.rotation
+		if sprite.flip_h == true:
+			self.global_position = Vector2(player.global_position.x-rect.x,player.global_position.y)
+		else:
+			self.global_position = Vector2(player.global_position.x+rect.x,player.global_position.y)
 
 func _input(event):
-	if Input.is_action_just_pressed("ui_pick"):
-		var bodies = $Area2D.get_overlapping_bodies()
+	
+	if player==null:
+		return;
+	if Input.is_action_pressed("ui_pick"):
+		var bodies = self.get_node("Area2D").get_overlapping_bodies()
 		for body in bodies:
-			if body.name == "res://Characters/Player.tscn" and get_node("res://Characters/Player.tscn").canPick == true:
-				picked = true
-				get_node("res://Characters/Player.tscn").canPick = false
-	if Input.is_action_just_pressed("ui_drop") and picked == true:
+			if body.name == player.name and player.can_pick == true:
+				if player.can_pick == true:
+					picked = true
+					player.can_pick = false
+					self.add_collision_exception_with(player)
+					player.add_child(self)
+	if !Input.is_action_pressed("ui_pick") and picked == true:
 		picked = false
-		get_node("res://Characters/Player.tscn").canPick = true
-		if get_node("res://Characters/Player.tscn").sprite.flip_h == false:
+		player.can_pick = true
+		self.remove_collision_exception_with(player)
+		print("drop")
+		if player.get_node("AnimatedSprite").flip_h == false:
 			apply_impulse(Vector2(), Vector2(90, -10))
 		else:
 			apply_impulse(Vector2(), Vector2(-90, -10))
-	if Input.is_action_just_pressed("ui_throw") and picked == true:
+	if Input.is_action_pressed("ui_throw") and picked == true:
+		print("throw")
 		picked = false
-		get_node("res://Characters/Player.tscn").canPick = true
-		if get_node("res://Characters/Player.tscn").sprite.flip_h == false:
+		player.can_pick = true
+		mode = MODE_RIGID
+		if player.get_node("AnimatedSprite").flip_h == false:
 			apply_impulse(Vector2(), Vector2(150, -200))
 		else:
 			apply_impulse(Vector2(), Vector2(-150, -200))
-	print("hello")
+	#print("hello")
