@@ -45,10 +45,6 @@ func get_input():
 		$AnimatedSprite.play("Walk")
 
 
-func _physics_process_old(delts):
-	get_input();
-	velocity = move_and_slide(velocity,Vector2.UP)
-
 func _draw():
 	if debug_line:
 		draw_line(Vector2(0,0), debug_line, Color(255, 0, 0), 1)
@@ -61,7 +57,6 @@ func _physics_process(delta):
 	var gravity_dir = current_orbit.gravity_vec
 	#rotation = (current_planet.global_transform.origin - transform.origin).angle() - PI/2
 	rotation = (gravity_dir - transform.origin).angle() - PI/2
-	
 	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
 	
 	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO

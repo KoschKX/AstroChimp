@@ -67,13 +67,13 @@ func _physics_process(delta):
 		var sprite = player.get_node("AnimatedSprite");
 		var rect = sprite.get_sprite_frames().get_frame(sprite.get_animation(),sprite.frame).get_size()*(player.scale/2)
 		self.rotation = player.rotation
+		var offset=Vector2(rect.x*0.5,0).rotated( player.rotation)
 		if sprite.flip_h == true:
-			self.global_position = Vector2(player.global_position.x-rect.x,player.global_position.y)
+			self.global_position = Vector2(player.global_position.x,player.global_position.y)+-offset
 		else:
-			self.global_position = Vector2(player.global_position.x+rect.x,player.global_position.y)
+			self.global_position = Vector2(player.global_position.x,player.global_position.y)+offset
 
 func _input(event):
-	
 	if player==null:
 		return;
 	if Input.is_action_pressed("ui_pick"):
@@ -82,7 +82,6 @@ func _input(event):
 			#print(body.name+" : "+player.name)
 			if body.name == player.name and player.can_pick == true:
 				if player.can_pick == true:
-					
 					picked = true
 					player.can_pick = false
 					self.add_collision_exception_with(player)
@@ -91,18 +90,23 @@ func _input(event):
 		picked = false
 		player.can_pick = true
 		self.remove_collision_exception_with(player)
-		print("drop")
+		velocity=player.velocity
 		if player.get_node("AnimatedSprite").flip_h == false:
-			apply_impulse(Vector2(), Vector2(90, -10))
+			var offset=Vector2(1500,-5000).rotated(player.rotation)
+			print("throw right")
+			apply_impulse(Vector2(), offset)
 		else:
-			apply_impulse(Vector2(), Vector2(-90, -10))
+			print("throw left")
+			var offset=Vector2(-1500,-5000).rotated(player.rotation)
+			apply_impulse(Vector2(), offset)
 	if Input.is_action_pressed("ui_throw") and picked == true:
 		print("throw")
 		picked = false
 		player.can_pick = true
 		mode = MODE_RIGID
+		var offset=Vector2(150,0).rotated( player.rotation)
 		if player.get_node("AnimatedSprite").flip_h == false:
-			apply_impulse(Vector2(), Vector2(150, -200))
+			apply_impulse(Vector2(), -offset)
 		else:
-			apply_impulse(Vector2(), Vector2(-150, -200))
+			apply_impulse(Vector2(), offset)
 	#print("hello")
