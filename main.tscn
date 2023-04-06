@@ -43,27 +43,27 @@ polygon = PoolVector2Array( 293.145, 143.411, 295.759, 171.511, 285.303, 202.824
 position = Vector2( 593, -7696 )
 scale = Vector2( 5, 5 )
 
-[node name="Cow" parent="." instance=ExtResource( 11 )]
+[node name="Cow" parent="." groups=["Pushables"] instance=ExtResource( 11 )]
 position = Vector2( 3065, -6814 )
 
-[node name="Egg" parent="." instance=ExtResource( 6 )]
+[node name="Egg" parent="." groups=["Pushables"] instance=ExtResource( 6 )]
 position = Vector2( 5144, -6283 )
 
-[node name="Banana" parent="." instance=ExtResource( 8 )]
+[node name="Banana" parent="." groups=["Pushables"] instance=ExtResource( 8 )]
 position = Vector2( -2007, -7095 )
 
-[node name="Block" parent="." instance=ExtResource( 5 )]
+[node name="Block" parent="." groups=["Pushables"] instance=ExtResource( 5 )]
 position = Vector2( -3048, -6778 )
 
-[node name="Giant Block" parent="." instance=ExtResource( 9 )]
+[node name="Giant Block" parent="." groups=["Pushables"] instance=ExtResource( 9 )]
 position = Vector2( 8582, 2544 )
 gravity_scale = 50.0
 script = ExtResource( 10 )
 
-[node name="Pole" parent="." instance=ExtResource( 2 )]
+[node name="Pole" parent="." groups=["Pushables"] instance=ExtResource( 2 )]
 position = Vector2( -5899, -4923 )
 
-[node name="Rectangle" parent="." instance=ExtResource( 3 )]
+[node name="Rectangle" parent="." groups=["Pushables"] instance=ExtResource( 3 )]
 position = Vector2( -7556, -1394 )
 
 [node name="Worm" parent="." instance=ExtResource( 4 )]
