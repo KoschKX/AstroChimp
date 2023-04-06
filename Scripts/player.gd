@@ -31,7 +31,7 @@ func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("walk_right"):
 		velocity.x += speed
-		$AnimatedSprite.play("Walk")
+		$AnimatedSprite.play("CrudWalk")
 		$AnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
@@ -40,9 +40,9 @@ func get_input():
 	else:
 		$AnimatedSprite.playing = false
 	if is_on_floor() == false:
-		$AnimatedSprite.play("Jump")
+		$AnimatedSprite.play("CrudJump")
 	else: 
-		$AnimatedSprite.play("Walk")
+		$AnimatedSprite.play("CrudWalk")
 
 
 func _draw():

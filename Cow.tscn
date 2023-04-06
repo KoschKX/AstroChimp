@@ -240,7 +240,7 @@ animations = [ {
 radius = 160.611
 
 [sub_resource type="RectangleShape2D" id=61]
-extents = Vector2( 137, 109 )
+extents = Vector2( 151.5, 179 )
 
 [node name="Cow" type="RigidBody2D"]
 script = ExtResource( 2 )
@@ -249,7 +249,7 @@ script = ExtResource( 2 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 19 )
 animation = "Farting"
-frame = 38
+frame = 30
 playing = true
 offset = Vector2( -75, -250 )
 
@@ -260,5 +260,5 @@ shape = SubResource( 15 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -17, -128 )
+position = Vector2( -31.5, -198 )
 shape = SubResource( 61 )
