@@ -85,15 +85,18 @@ func _input(event):
 					picked = true
 					player.can_pick = false
 					self.add_collision_exception_with(player)
+					player.is_carrying=true
 					player.add_child(self)
 	if !Input.is_action_pressed("ui_pick") and picked == true:
 		picked = false
 		player.can_pick = true
 		self.remove_collision_exception_with(player)
 		velocity=player.velocity
+		player.is_carrying=false
 		if player.get_node("AnimatedSprite").flip_h == false:
 			var offset=Vector2(1500,-5000).rotated(player.rotation)
 			print("throw right")
+			
 			apply_impulse(Vector2(), offset)
 		else:
 			print("throw left")
@@ -104,6 +107,7 @@ func _input(event):
 		picked = false
 		player.can_pick = true
 		mode = MODE_RIGID
+		player.is_carrying=false
 		var offset=Vector2(150,0).rotated( player.rotation)
 		if player.get_node("AnimatedSprite").flip_h == false:
 			apply_impulse(Vector2(), -offset)

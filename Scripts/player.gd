@@ -10,6 +10,7 @@ export (bool) var can_pick = true
 
 var velocity = Vector2.ZERO
 var is_jumping = false
+var is_carrying = false
 var planets: Array
 var current_planet: Node
 var current_orbit: Node
@@ -31,7 +32,10 @@ func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("walk_right"):
 		velocity.x += speed
-		$AnimatedSprite.play("CrudWalk")
+		if is_carrying:
+			$AnimatedSprite.play("CrudWalk")
+		else:
+			$AnimatedSprite.play("Walk")
 		$AnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
@@ -40,9 +44,15 @@ func get_input():
 	else:
 		$AnimatedSprite.playing = false
 	if is_on_floor() == false:
-		$AnimatedSprite.play("CrudJump")
+		if is_carrying:
+			$AnimatedSprite.play("CrudJump")
+		else:
+			$AnimatedSprite.play("Jump")
 	else: 
-		$AnimatedSprite.play("CrudWalk")
+		if is_carrying:
+			$AnimatedSprite.play("CrudWalk")
+		else:
+			$AnimatedSprite.play("Walk")
 
 
 func _draw():
