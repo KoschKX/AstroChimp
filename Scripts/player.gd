@@ -70,7 +70,7 @@ func _physics_process(delta):
 	#var max_slope = deg2rad(slope_threshold);
 	
 	var col_count=0
-	if velocity: # true if collided
+	if !is_jumping and velocity: # true if collided
 		for c in get_slide_count():
 			var col = get_slide_collision(c)
 			if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"):
