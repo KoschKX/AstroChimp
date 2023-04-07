@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/moon.0001.png" type="Texture" id=1]
 [ext_resource path="res://Shapes/Pole.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Shapes/Giant Block.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Shapes/Giant Block.gd" type="Script" id=10]
 [ext_resource path="res://Cow.tscn" type="PackedScene" id=11]
+[ext_resource path="res://PhysicalMaterial/pushable.tres" type="PhysicsMaterial" id=12]
 
 [sub_resource type="CircleShape2D" id=14]
 radius = 11722.8
@@ -45,26 +46,33 @@ scale = Vector2( 5, 5 )
 
 [node name="Cow" parent="." groups=["Pushables"] instance=ExtResource( 11 )]
 position = Vector2( 3065, -6814 )
+physics_material_override = ExtResource( 12 )
 
 [node name="Egg" parent="." groups=["Pushables"] instance=ExtResource( 6 )]
 position = Vector2( 5144, -6283 )
+physics_material_override = ExtResource( 12 )
 
 [node name="Banana" parent="." groups=["Pushables"] instance=ExtResource( 8 )]
 position = Vector2( -2007, -7095 )
+physics_material_override = ExtResource( 12 )
 
 [node name="Block" parent="." groups=["Pushables"] instance=ExtResource( 5 )]
 position = Vector2( -3048, -6778 )
+physics_material_override = ExtResource( 12 )
 
 [node name="Giant Block" parent="." groups=["Pushables"] instance=ExtResource( 9 )]
 position = Vector2( 8582, 2544 )
+physics_material_override = ExtResource( 12 )
 gravity_scale = 50.0
 script = ExtResource( 10 )
 
 [node name="Pole" parent="." groups=["Pushables"] instance=ExtResource( 2 )]
 position = Vector2( -5899, -4923 )
+physics_material_override = ExtResource( 12 )
 
 [node name="Rectangle" parent="." groups=["Pushables"] instance=ExtResource( 3 )]
 position = Vector2( -7556, -1394 )
+physics_material_override = ExtResource( 12 )
 
 [node name="Worm" parent="." instance=ExtResource( 4 )]
 position = Vector2( -156, 6869 )
