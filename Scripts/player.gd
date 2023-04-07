@@ -70,10 +70,8 @@ func _physics_process(delta):
 	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
 	
 	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	
-	var snap = transform.y * 32 
-	if is_jumping:
-		snap = Vector2.ZERO
+	#var snap = transform.y * 32 if !is_jumping else Vector2.ZERO
+	var snap := Vector2(0, 64) if !is_jumping and is_on_floor() else Vector2.ZERO
 	#var max_slope = deg2rad(slope_threshold);
 	
 	var col_count=0
@@ -87,11 +85,12 @@ func _physics_process(delta):
 	
 	# print(col_count)
 	
-	var move_slide_limit=1
+	var move_slide_limit=4
 	var angle_limit=PI/2
 	var infinit_inertia=false
-	if is_on_floor() and col_count==0:
+	if col_count==0:
 		move_slide_limit=4
+	
 	
 	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, move_slide_limit, angle_limit, infinit_inertia)
 		
