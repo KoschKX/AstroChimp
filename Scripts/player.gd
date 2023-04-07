@@ -10,7 +10,6 @@ export (bool) var can_pick = true
 
 var velocity = Vector2.ZERO
 var is_jumping = false
-var is_carrying = false
 var planets: Array
 var current_planet: Node
 var current_orbit: Node
@@ -32,10 +31,7 @@ func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("walk_right"):
 		velocity.x += speed
-		if is_carrying:
-			$AnimatedSprite.play("CrudWalk")
-		else:
-			$AnimatedSprite.play("Walk")
+		$AnimatedSprite.play("Walk")
 		$AnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
@@ -44,16 +40,14 @@ func get_input():
 	else:
 		$AnimatedSprite.playing = false
 	if is_on_floor() == false:
-		if is_carrying:
-			$AnimatedSprite.play("CrudJump")
-		else:
-			$AnimatedSprite.play("Jump")
+		$AnimatedSprite.play("Jump")
 	else: 
-		if is_carrying:
-			$AnimatedSprite.play("CrudWalk")
-		else:
-			$AnimatedSprite.play("Walk")
+		$AnimatedSprite.play("Walk")
 
+
+func _physics_process_old(delts):
+	get_input();
+	velocity = move_and_slide(velocity,Vector2.UP)
 
 func _draw():
 	if debug_line:
@@ -67,32 +61,28 @@ func _physics_process(delta):
 	var gravity_dir = current_orbit.gravity_vec
 	#rotation = (current_planet.global_transform.origin - transform.origin).angle() - PI/2
 	rotation = (gravity_dir - transform.origin).angle() - PI/2
+	
 	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
 	
 	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	#var snap = transform.y * 32 if !is_jumping else Vector2.ZERO
-	var snap := Vector2(0, 64) if !is_jumping and is_on_floor() else Vector2.ZERO
+	var snap = transform.y * 32 if !is_jumping else Vector2.ZERO
 	#var max_slope = deg2rad(slope_threshold);
 	
 	var col_count=0
 	if velocity: # true if collided
 		for c in get_slide_count():
 			var col = get_slide_collision(c)
-			if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"):
+			if col.get_collider() is RigidBody2D:
 				col_count+=1;
 				var pos = col.position - col.collider.position;
 				col.collider.apply_central_impulse(-col.normal * inertia)
 	
 	# print(col_count)
 	
-	var move_slide_limit=4
-	var angle_limit=PI/2
-	var infinit_inertia=false
-	if col_count==0:
-		move_slide_limit=4
-	
-	
-	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, move_slide_limit, angle_limit, infinit_inertia)
+	if col_count:
+		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 4, PI/12, false)
+	else:
+		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, PI/2, false)
 		
 	velocity = velocity.rotated(-rotation)	
 		
