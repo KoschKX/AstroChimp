@@ -9,6 +9,7 @@ export (int,0,200) var inertia = 100
 export (bool) var can_pick = true
 
 var velocity = Vector2.ZERO
+var is_carrying = false
 var is_jumping = false
 var planets: Array
 var current_planet: Node
@@ -72,24 +73,28 @@ func _physics_process(delta):
 	if velocity: # true if collided
 		for c in get_slide_count():
 			var col = get_slide_collision(c)
-			if col.get_collider() is RigidBody2D:
+			if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"):
 				col_count+=1;
 				var pos = col.position - col.collider.position;
 				col.collider.apply_central_impulse(-col.normal * inertia)
 	
 	# print(col_count)
 	
-	if col_count:
-		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 4, PI/12, false)
-	else:
-		velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, PI/2, false)
+	#if col_count:
+		#velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 4, PI/12, false)
+	#else:
+	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, true, 4, PI/2, false)
 		
 	velocity = velocity.rotated(-rotation)	
 		
 	#debug_line=transform.y * 300
 	
 	if is_on_floor():
-		is_jumping = false
+		var bodies = self.get_node("Area2D").get_overlapping_bodies()
+		for body in bodies:
+			#if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"):
+			if body.is_in_group("Pushables"):
+				is_jumping = false
 		if Input.is_action_just_pressed("jump"):
 			is_jumping = true
 			velocity.y = jump_force

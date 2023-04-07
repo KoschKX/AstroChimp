@@ -20,7 +20,7 @@ radius = 11722.8
 [node name="Planets" type="Node2D" parent="."]
 position = Vector2( 17, 0 )
 
-[node name="Planet" type="Sprite" parent="Planets"]
+[node name="Planet" type="Sprite" parent="Planets" groups=["Platforms"]]
 scale = Vector2( 18.3629, 18.3629 )
 texture = ExtResource( 1 )
 

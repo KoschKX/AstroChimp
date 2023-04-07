@@ -84,7 +84,7 @@ func _physics_process(delta):
 				col_w_player=true;
 		if col_w_player==false:
 			self.remove_collision_exception_with(player)
-			print(thrown_tick);
+			#print(thrown_tick);
 			thrown_tick=0;
 			thrown=false;
 
