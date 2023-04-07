@@ -249,7 +249,7 @@ script = ExtResource( 2 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 19 )
 animation = "Farting"
-frame = 24
+frame = 54
 playing = true
 offset = Vector2( -75, -250 )
 
