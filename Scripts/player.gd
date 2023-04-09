@@ -44,7 +44,17 @@ func get_input():
 		$AnimatedSprite.play("Jump")
 	else: 
 		$AnimatedSprite.play("Walk")
-
+	if Input.is_action_pressed("walk_right") and Input.is_action_pressed("ui_run"):
+		velocity.x += speed *1.5
+		$AnimatedSprite.play("Run")
+		$AnimatedSprite.flip_h = false
+	elif Input.is_action_pressed("walk_left") and Input.is_action_pressed("ui_run"):
+		velocity.x -= speed *1.5
+		$AnimatedSprite.play("Run")
+		$AnimatedSprite.flip_h = true
+	else:
+		$AnimatedSprite.playing = false
+	
 
 func _physics_process_old(delts):
 	get_input();
@@ -92,7 +102,7 @@ func _physics_process(delta):
 	if is_on_floor():
 		#var bodies = self.get_node("Area2D").get_overlapping_bodies()
 		#for body in bodies:
-			#if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"):
+			#if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"): 
 			#if body.is_in_group("Pushables"):
 		is_jumping = false
 		if Input.is_action_just_pressed("jump"):
