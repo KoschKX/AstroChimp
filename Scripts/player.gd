@@ -54,7 +54,7 @@ func get_input():
 		$AnimatedSprite.play("Jump")
 	#else: 
 	#		$AnimatedSprite.play("Walk")
-		
+	#	
 	
 	
 
