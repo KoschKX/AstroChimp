@@ -32,7 +32,6 @@ func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("walk_right"):
 		velocity.x += speed
-		$AnimatedSprite.play("Walk")
 		$AnimatedSprite.flip_h = false
 		if Input.is_action_pressed("ui_run"):
 			velocity.x += speed *1.5
@@ -41,7 +40,6 @@ func get_input():
 			$AnimatedSprite.play("Walk")	
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
-		$AnimatedSprite.play()
 		$AnimatedSprite.flip_h = true
 		if Input.is_action_pressed("ui_run"):
 			velocity.x -= speed *1.5
