@@ -34,26 +34,28 @@ func get_input():
 		velocity.x += speed
 		$AnimatedSprite.play("Walk")
 		$AnimatedSprite.flip_h = false
+		if Input.is_action_pressed("ui_run"):
+			velocity.x += speed *1.5
+			$AnimatedSprite.play("Run")
+		else: 
+			$AnimatedSprite.play("Walk")	
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
 		$AnimatedSprite.play()
 		$AnimatedSprite.flip_h = true
+		if Input.is_action_pressed("ui_run"):
+			velocity.x -= speed *1.5
+			$AnimatedSprite.play("Run")
+		else: 
+			$AnimatedSprite.play("Walk")
 	else:
 		$AnimatedSprite.playing = false
 	if is_on_floor() == false:
 		$AnimatedSprite.play("Jump")
-	else: 
-		$AnimatedSprite.play("Walk")
-	if Input.is_action_pressed("walk_right") and Input.is_action_pressed("ui_run"):
-		velocity.x += speed *1.5
-		$AnimatedSprite.play("Run")
-		$AnimatedSprite.flip_h = false
-	elif Input.is_action_pressed("walk_left") and Input.is_action_pressed("ui_run"):
-		velocity.x -= speed *1.5
-		$AnimatedSprite.play("Run")
-		$AnimatedSprite.flip_h = true
-	else:
-		$AnimatedSprite.playing = false
+	#else: 
+	#		$AnimatedSprite.play("Walk")
+		
+	
 	
 
 func _physics_process_old(delts):
