@@ -1,10 +1,10 @@
 extends KinematicBody2D
 
-export (int) var speed = 1200
+export (int) var speed = 800
 export (int) var jump_force = -2500
-export (int) var booster_force = -3000
-export (int,0,100) var gravity_scale = 50
-export (int,0,200) var inertia = 100
+export (int) var booster_force = -125
+export (int,0,100) var gravity_scale = 100
+export (int,0,200) var inertia = 50
 
 export (bool) var can_pick = true
 
@@ -17,6 +17,7 @@ var current_orbit: Node
 var time_delta = 0
 var canPick = false
 
+
 var debug_line = Vector2.ZERO
 
 func _ready():
@@ -26,7 +27,6 @@ func _ready():
 	_get_closest_planet(current_planet)
 	_start_closest_planet_timer()
 	
-
 func get_input():
 	canPick = true
 	velocity.x = 0
@@ -34,22 +34,29 @@ func get_input():
 		velocity.x += speed
 		$AnimatedSprite.flip_h = false
 		if Input.is_action_pressed("ui_run"):
-			velocity.x += speed *1.5
+			velocity.x = velocity.x*1.5
 			$AnimatedSprite.play("Run")
+		elif is_carrying == true:
+			$AnimatedSprite.play("Carry")
+			velocity.x = velocity.x/1.5
 		else: 
 			$AnimatedSprite.play("Walk")	
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
 		$AnimatedSprite.flip_h = true
 		if Input.is_action_pressed("ui_run"):
-			velocity.x -= speed *1.5
+			velocity.x += velocity.x*1.5 - velocity.x
 			$AnimatedSprite.play("Run")
+		elif is_carrying == true:
+			$AnimatedSprite.play("Carry")
+			velocity.x = velocity.x/1.5
 		else: 
 			$AnimatedSprite.play("Walk")
 	else:
 		$AnimatedSprite.playing = false
 	if is_on_floor() == false:
 		$AnimatedSprite.play("Jump")
+	
 	#else: 
 	#		$AnimatedSprite.play("Walk")
 	#	
@@ -99,18 +106,21 @@ func _physics_process(delta):
 		
 	#debug_line=transform.y * 300
 	
+
 	if is_on_floor():
 		#var bodies = self.get_node("Area2D").get_overlapping_bodies()
 		#for body in bodies:
 			#if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"): 
 			#if body.is_in_group("Pushables"):
 		is_jumping = false
-		if Input.is_action_just_pressed("jump"):
+		
+		if Input.is_action_pressed("jump"):
 			is_jumping = true
 			velocity.y = jump_force
 			$AnimatedSprite.play("Jump")
+			
 	else:
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_pressed("jump"):
 			velocity.y += booster_force
 			
 

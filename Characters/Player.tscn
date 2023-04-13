@@ -1,8 +1,209 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://Assets/Spaceman.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/player.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Run.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Carry.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=85]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=86]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 204, 0, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=87]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 408, 0, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=88]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 612, 0, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=89]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 816, 0, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=90]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 237, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=91]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 204, 237, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=92]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 408, 237, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=93]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 612, 237, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=94]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 816, 237, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=95]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 474, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=96]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 204, 474, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=97]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 408, 474, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=98]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 612, 474, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=99]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 816, 474, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=100]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 711, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=101]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 204, 711, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=102]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 408, 711, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=103]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 612, 711, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=104]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 816, 711, 204, 237 )
+
+[sub_resource type="AtlasTexture" id=105]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=106]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 204, 0, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=107]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 408, 0, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=108]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 612, 0, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=109]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 816, 0, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=110]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 238, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=111]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 204, 238, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=112]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 408, 238, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=113]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 612, 238, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=114]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 816, 238, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=115]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 476, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=116]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 204, 476, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=117]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 408, 476, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=118]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 612, 476, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=119]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 816, 476, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=120]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 714, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=121]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 204, 714, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=122]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 408, 714, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=123]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 612, 714, 204, 232 )
+
+[sub_resource type="AtlasTexture" id=124]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 816, 714, 204, 232 )
 
 [sub_resource type="AtlasTexture" id=67]
 flags = 4
@@ -96,6 +297,11 @@ region = Rect2( 720, 0, 240, 281 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
+"frames": [ SubResource( 85 ), SubResource( 86 ), SubResource( 87 ), SubResource( 88 ), SubResource( 89 ), SubResource( 90 ), SubResource( 91 ), SubResource( 92 ), SubResource( 93 ), SubResource( 94 ), SubResource( 95 ), SubResource( 96 ), SubResource( 97 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 113 ), SubResource( 114 ), SubResource( 115 ), SubResource( 116 ), SubResource( 117 ), SubResource( 118 ), SubResource( 119 ), SubResource( 120 ), SubResource( 121 ), SubResource( 122 ), SubResource( 123 ), SubResource( 124 ) ],
+"loop": true,
+"name": "Carry",
+"speed": 24.0
+}, {
 "frames": [ SubResource( 67 ) ],
 "loop": true,
 "name": "CrudJump",
@@ -145,8 +351,7 @@ speed = 2500
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-animation = "Run"
-frame = 5
+animation = "Carry"
 speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
