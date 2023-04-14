@@ -17,6 +17,7 @@ var current_orbit: Node
 var time_delta = 0
 var canPick = false
 
+onready var particles = $Particles2D
 
 var debug_line = Vector2.ZERO
 
@@ -26,6 +27,7 @@ func _ready():
 	current_orbit = current_planet.get_node("Orbit")
 	_get_closest_planet(current_planet)
 	_start_closest_planet_timer()
+	particles.one_shot = true
 	
 func get_input():
 	canPick = true
@@ -60,8 +62,6 @@ func get_input():
 	#else: 
 	#		$AnimatedSprite.play("Walk")
 	#	
-	
-	
 
 func _physics_process_old(delts):
 	get_input();
@@ -118,6 +118,7 @@ func _physics_process(delta):
 			is_jumping = true
 			velocity.y = jump_force
 			$AnimatedSprite.play("Jump")
+			particles.emitting = true
 			
 	else:
 		if Input.is_action_pressed("jump"):
