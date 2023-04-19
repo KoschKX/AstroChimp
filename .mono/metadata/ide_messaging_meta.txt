@@ -1,2 +1,0 @@
-﻿60719
-C:/Program Files/GodotMono/Godot.exe
