@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/moon.0001.png" type="Texture" id=1]
-[ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Shapes/Pole.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Shapes/Rectangle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Characters/Worm.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Shapes/Block.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Shapes/Egg.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Cow.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Shapes/Banana.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Shapes/Giant Block.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Shapes/Giant Block.gd" type="Script" id=10]
+[ext_resource path="res://Shapes/Cow.tscn" type="PackedScene" id=11]
 [ext_resource path="res://PhysicalMaterial/pushable.tres" type="PhysicsMaterial" id=12]
 
 [sub_resource type="CircleShape2D" id=14]
@@ -28,18 +35,64 @@ gravity_vec = Vector2( 0, 0 )
 shape = SubResource( 14 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Planets/Planet"]
+collision_layer = 5
+collision_mask = 5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Planets/Planet/StaticBody2D"]
 position = Vector2( 75.6961, 9.69346 )
 polygon = PoolVector2Array( 293.145, 143.411, 295.759, 171.511, 285.303, 202.824, 266.352, 234.191, 240.266, 253.088, 203.072, 261.583, 170.397, 292.243, 126.668, 322.957, 65.3483, 351.656, 3.97451, 366.686, -67.8551, 376.488, -167.73, 365.379, -248.654, 330.144, -296.958, 296.816, -328.925, 274.652, -353.757, 244.591, -373.961, 214.585, -390.298, 182.618, -405.329, 152.558, -410.012, 137.287, -394.328, 124.38, -388.338, 99.4386, -394.328, 37.5748, -410.502, -6.69933, -422.047, -23.3634, -440.508, -28.8637, -460.33, -27.0122, -452.325, -90.9225, -426.185, -160.084, -418.343, -175.114, -423.571, -185.57, -428.799, -202.506, -420.957, -221.457, -412.461, -239.102, -394.218, -234.527, -373.96, -237.794, -357.024, -244.329, -351.142, -261.919, -343.3, -285.445, -321.081, -303.035, -251.92, -353.299, -176.169, -385.973, -93.2849, -397.681, -33.2181, -395.721, 55.5478, -376.17, 134.511, -338.322, 208.955, -282.829, 256.605, -222.763, 297.72, -145.759, 265.1, -128.769, 242.228, -98.1091, 242.881, -78.5044, 250.07, -45.2307, 265.699, -31.5074, 293.145, -16.477, 308.829, -13.863, 310.136, 35.7479, 308.829, 67.7145, 303.601, 93.7997, 291.185, 122.553 )
 
-[node name="Wall" parent="." instance=ExtResource( 2 )]
-position = Vector2( 382, 8559 )
-
 [node name="Player" parent="." instance=ExtResource( 7 )]
-position = Vector2( 593, -7696 )
+position = Vector2( 0, -7718 )
 scale = Vector2( 5, 5 )
+speed = 1800
+booster_force = -2000
 
 [node name="Cow" parent="." groups=["Pushables"] instance=ExtResource( 11 )]
 position = Vector2( 3065, -6814 )
+mass = 0.940816
 physics_material_override = ExtResource( 12 )
+gravity_scale = 50.0
+
+[node name="Egg" parent="." groups=["Pushables"] instance=ExtResource( 6 )]
+position = Vector2( 5144, -6283 )
+physics_material_override = ExtResource( 12 )
+
+[node name="Banana" parent="." groups=["Pushables"] instance=ExtResource( 8 )]
+position = Vector2( -3026, -6771 )
+physics_material_override = ExtResource( 12 )
+
+[node name="Block" parent="." groups=["Pushables"] instance=ExtResource( 5 )]
+position = Vector2( 1168, -7497 )
+physics_material_override = ExtResource( 12 )
+
+[node name="Giant Block" parent="." groups=["Pushables"] instance=ExtResource( 9 )]
+position = Vector2( 8582, 2544 )
+physics_material_override = ExtResource( 12 )
+gravity_scale = 50.0
+script = ExtResource( 10 )
+
+[node name="Pole" parent="." groups=["Pushables"] instance=ExtResource( 2 )]
+position = Vector2( -5899, -4923 )
+physics_material_override = ExtResource( 12 )
+
+[node name="Rectangle3" parent="." groups=["Pushables"] instance=ExtResource( 3 )]
+position = Vector2( -1537, -6800 )
+rotation = -0.525344
+mode = 3
+physics_material_override = ExtResource( 12 )
+
+[node name="Rectangle2" parent="." groups=["Pushables"] instance=ExtResource( 3 )]
+position = Vector2( 1953, -6690 )
+rotation = 0.491115
+mode = 3
+physics_material_override = ExtResource( 12 )
+
+[node name="Rectangle" parent="." groups=["Pushables"] instance=ExtResource( 3 )]
+position = Vector2( -7556, -1394 )
+physics_material_override = ExtResource( 12 )
+
+[node name="Worm" parent="." instance=ExtResource( 4 )]
+position = Vector2( -156, 6869 )
+rotation = -2.98451
+scale = Vector2( 18.3629, 18.3629 )

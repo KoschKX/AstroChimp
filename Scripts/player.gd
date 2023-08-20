@@ -1,23 +1,29 @@
 extends KinematicBody2D
 
-export (int) var speed = 800
+export (int) var speed = 1200
 export (int) var jump_force = -2500
-export (int) var booster_force = -125
-export (int,0,100) var gravity_scale = 100
-export (int,0,200) var inertia = 50
+export (int) var booster_force = -3000
+export (int,0,100) var gravity_scale = 50
+export (int,0,200) var inertia = 100
 
 export (bool) var can_pick = true
 
+var gravity_dir
+
 var velocity = Vector2.ZERO
+var move_velocity = Vector2.ZERO
 var is_carrying = false
+var is_walking = false
+var is_running = false
 var is_jumping = false
+var is_pushing = false
+var is_grounded = false
+var is_onpushable = false
 var planets: Array
 var current_planet: Node
 var current_orbit: Node
 var time_delta = 0
 var canPick = false
-
-onready var particles = $Particles2D
 
 var debug_line = Vector2.ZERO
 
@@ -25,107 +31,143 @@ func _ready():
 	planets = get_node("/root/MainLevel/Planets").get_children()
 	current_planet = planets[0]
 	current_orbit = current_planet.get_node("Orbit")
-	_get_closest_planet(current_planet)
-	_start_closest_planet_timer()
-	particles.one_shot = true
+	_find_nearest_planet(current_planet)
 	
 func get_input():
 	canPick = true
-	velocity.x = 0
+	is_walking = false
+	move_velocity.x = 0
 	if Input.is_action_pressed("walk_right"):
-		velocity.x += speed
+		move_velocity.x += speed
+		is_walking = true
 		$AnimatedSprite.flip_h = false
 		if Input.is_action_pressed("ui_run"):
-			velocity.x = velocity.x*1.5
+			move_velocity.x += speed *1.5
 			$AnimatedSprite.play("Run")
-		elif is_carrying == true:
-			$AnimatedSprite.play("Carry")
-			velocity.x = velocity.x/1.5
+			is_walking = false
+			is_running = true
 		else: 
 			$AnimatedSprite.play("Walk")	
 	elif Input.is_action_pressed("walk_left"):
-		velocity.x -= speed
+		move_velocity.x -= speed
 		$AnimatedSprite.flip_h = true
+		is_walking = true
 		if Input.is_action_pressed("ui_run"):
-			velocity.x += velocity.x*1.5 - velocity.x
+			move_velocity.x -= speed *1.5
 			$AnimatedSprite.play("Run")
-		elif is_carrying == true:
-			$AnimatedSprite.play("Carry")
-			velocity.x = velocity.x/1.5
+			is_walking = false
+			is_running = true
 		else: 
 			$AnimatedSprite.play("Walk")
 	else:
+		$AnimatedSprite.play("Walk")
 		$AnimatedSprite.playing = false
+		is_walking = false
+		is_running = false
+		
 	if is_on_floor() == false:
-		$AnimatedSprite.play("Jump")
-	
-	#else: 
-	#		$AnimatedSprite.play("Walk")
-	#	
+		if is_pushing:
+			$AnimatedSprite.play("Walk")
+		else:
+			$AnimatedSprite.play("Jump")
+		is_walking = false
+		is_running = false
+		
+	#else:
+		#$AnimatedSprite.play("Walk")
 
-func _physics_process_old(delts):
-	get_input();
-	velocity = move_and_slide(velocity,Vector2.UP)
+const GRAVITY = 0.00000000000666726
+func newtonian_gravity(delta, obj_1, obj_2):
+	obj_1.velocity += (obj_2.global_transform.origin\
+		- obj_1.global_transform.origin).normalized()\
+		* GRAVITY * obj_2.mass\
+		/ pow((obj_2.global_transform.origin.\
+		distance_to(obj_1.global_transform.origin)), 2) * delta
+	obj_1.move_and_slide(obj_1.velocity, Vector2.DOWN)
 
 func _draw():
-	if debug_line:
-		draw_line(Vector2(0,0), debug_line, Color(255, 0, 0), 1)
+	draw_line(Vector2(0,0), debug_line*1000, Color(255, 0, 0), 1)
+	
 
+func getAxis(down, axis):
+	if axis==0:
+		return down.rotated(deg2rad(-90))
+	if axis==1:
+		return down
+		
 func _physics_process(delta):
 	get_input()
 	
 	time_delta += delta
 
-	var gravity_dir = current_orbit.gravity_vec
-	#rotation = (current_planet.global_transform.origin - transform.origin).angle() - PI/2
-	rotation = (gravity_dir - transform.origin).angle() - PI/2
+	var down = (current_orbit.gravity_vec - transform.origin).normalized() 
+	# down = Vector2.DOWN
+	rotation = down.angle() - PI/2
+
+	is_pushing=false
+	is_onpushable=false
+	is_grounded=false
 	
-	velocity.y += (current_orbit.gravity  * delta) * gravity_scale
+	var floor_normal=get_floor_normal().rotated(-rotation)
 	
-	#var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	#var max_slope = deg2rad(slope_threshold);
-	
-	var col_count=0
-	if !is_jumping and velocity: # true if collided
+	if !is_jumping and velocity:
+				
 		for c in get_slide_count():
 			var col = get_slide_collision(c)
 			if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"):
-				col_count+=1;
-				var pos = col.position - col.collider.position;
-				#col.collider.apply_central_impulse(-col.normal * inertia)
-	
-	# print(col_count)
-	
-	#if col_count:
-		#velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 4, PI/12, false)
-	#else:
-	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 4, PI/2, false)
-		
-	velocity = velocity.rotated(-rotation)	
-		
-	#debug_line=transform.y * 300
-	
+				
+				# PUSH 
+				var cpos = col.position - col.collider.position;
+				var push_dir = position.direction_to(cpos)
+				var push_dist = col.normal.distance_to(push_dir);
+				#if push_dist < 1.5:
+				var push_force=inertia;
+				is_pushing=true
+				col.collider.apply_central_impulse(-col.normal * push_force)
+				#if move_velocity.x>0:
+					#col.collider.apply_central_impulse(getAxis(down,0) * push_force)
+				#elif move_velocity.x<0:
+					#col.collider.apply_central_impulse(-getAxis(down,0) * push_force)
+				#else:
+					#is_onpushable=true
 
+	if !is_on_wall():
+		#print("wall")
+		pass
+		
+	print(is_pushing)
+		
+	move_velocity.y+=(current_orbit.gravity * delta) * gravity_scale
+	
+	velocity = getAxis(down, 0) * move_velocity.x
+	velocity += getAxis(down, 1) * move_velocity.y
+
+	var snap = getAxis(down, 1) * 32 if !is_jumping else Vector2.ZERO
+
+	velocity = move_and_slide_with_snap(velocity, snap, -getAxis(down, 1), true, 4, deg2rad(50), false)
+	
 	if is_on_floor():
-		#var bodies = self.get_node("Area2D").get_overlapping_bodies()
-		#for body in bodies:
-			#if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"): 
-			#if body.is_in_group("Pushables"):
-		is_jumping = false
-		
-		if Input.is_action_pressed("jump"):
-			is_jumping = true
-			velocity.y = jump_force
-			$AnimatedSprite.play("Jump")
-			particles.emitting = true
-			
-	else:
-		if Input.is_action_pressed("jump"):
-			velocity.y += booster_force
-			
+		move_velocity = velocity.rotated(-rotation)
 
-func _get_closest_planet(smallest):
+	#debug_line=velocity.rotated(-rotation)
+	#update()
+	
+	if is_on_floor():
+		is_jumping = false
+		if Input.is_action_just_pressed("jump"):
+			is_jumping = true
+			move_velocity.y = jump_force
+			$AnimatedSprite.play("Jump")
+		else:
+			is_grounded=true
+	else:
+		if Input.is_action_just_pressed("jump"):
+			move_velocity.y += booster_force
+	
+	
+	
+
+func _find_nearest_planet(smallest):
 	var new_smallest = smallest
 	var did_change = false
 	
@@ -144,12 +186,3 @@ func _get_closest_planet(smallest):
 		velocity.y = 1200
 		
 	current_planet = new_smallest
-
-
-func _start_closest_planet_timer():
-	var timer = Timer.new()
-	timer.wait_time = 0.1
-	timer.connect("timeout", self, "_get_closest_planet", [current_planet])
-	add_child(timer)
-	timer.start()
-	

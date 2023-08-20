@@ -51,32 +51,3 @@ func _physics_process(delta):
 			is_jumping = true
 			velocity.y = jump_speed
 
-
-func _get_closest_planet(smallest):
-	var new_smallest = smallest
-	var did_change = false
-	
-	if !is_jumping:
-		return
-	
-	for planet in planets:
-		if !new_smallest:
-			new_smallest = planet
-
-		if global_position.distance_to(planet.global_position) < global_position.distance_to(new_smallest.global_position):
-			new_smallest = planet
-
-	if new_smallest != current_planet:
-		is_jumping = false
-		velocity.y = 1200
-		
-	current_planet = new_smallest
-
-
-func _start_closest_planet_timer():
-	var timer = Timer.new()
-	timer.wait_time = 0.1
-	timer.connect("timeout", self, "_get_closest_planet", [current_planet])
-	add_child(timer)
-	timer.start()
-	
