@@ -90,6 +90,7 @@ func _draw():
 	
 
 func getAxis(down, axis):
+	# GET AXIS BASED ON CENTER #
 	if axis==0:
 		return down.rotated(deg2rad(-90))
 	if axis==1:
@@ -99,15 +100,16 @@ func _physics_process(delta):
 	get_input()
 	
 	time_delta += delta
-
+	
+	# SET CENTER OF GRAVITY AND ROTATION #
 	var down = (current_orbit.gravity_vec - transform.origin).normalized() 
-	# down = Vector2.DOWN
 	rotation = down.angle() - PI/2
 
 	is_pushing=false
 	is_onpushable=false
 	is_grounded=false
 	
+	# UNROTATED FLOOR NORMAL #
 	var floor_normal=get_floor_normal().rotated(-rotation)
 	
 	if !is_jumping and velocity:
@@ -134,22 +136,24 @@ func _physics_process(delta):
 	if !is_on_wall():
 		#print("wall")
 		pass
-		
-	print(is_pushing)
-		
+
+	# ADD GRAVITY #
 	move_velocity.y+=(current_orbit.gravity * delta) * gravity_scale
 	
+	# ADD CONTROLLED MOVEMENT #
 	velocity = getAxis(down, 0) * move_velocity.x
 	velocity += getAxis(down, 1) * move_velocity.y
-
+	
+	# MOVE AND SLIDE # 
 	var snap = getAxis(down, 1) * 32 if !is_jumping else Vector2.ZERO
-
 	velocity = move_and_slide_with_snap(velocity, snap, -getAxis(down, 1), true, 4, deg2rad(50), false)
 	
+	# UPDATE MOVE AND SLIDE VELOCITY #
 	if is_on_floor():
 		move_velocity = velocity.rotated(-rotation)
-
-	#debug_line=velocity.rotated(-rotation)
+	
+	# DEBUG FEEDBACK # 
+	#debug_line=down.rotated(-rotation)
 	#update()
 	
 	if is_on_floor():
@@ -163,8 +167,6 @@ func _physics_process(delta):
 	else:
 		if Input.is_action_just_pressed("jump"):
 			move_velocity.y += booster_force
-	
-	
 	
 
 func _find_nearest_planet(smallest):
