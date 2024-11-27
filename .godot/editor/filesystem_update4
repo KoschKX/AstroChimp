@@ -1,6 +1,5 @@
 res://default_env.tres
 res://main.tscn
-res://Scripts/pushable.gd
-res://Scripts/Worm.gd
+res://Characters/Player.tscn
+res://Shapes/Cow.tscn
 res://Scripts/player.gd
-res://Scripts/Camera.gd

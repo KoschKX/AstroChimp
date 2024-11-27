@@ -1,11 +1,11 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1732724183
-default_env.tres::Environment::-1::1732722615::0::1::::<><>::
+::res://::1732726201
+default_env.tres::Environment::9029302750821378900::1732726061::0::1::::<><>::
 main2.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/moon.0001.png<>res://Shapes/Pole.tscn<>res://Shapes/Rectangle.tscn<>res://Characters/Worm.tscn<>res://Shapes/Block.tscn<>res://Shapes/Egg.tscn<>res://Characters/Player.tscn<>res://Shapes/Banana.tscn<>res://Shapes/Giant Block.tscn<>res://Shapes/Giant Block.gd<>res://Shapes/Cow.tscn
-main.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/moon.0001.png<>res://Shapes/Pole.tscn<>res://Shapes/Rectangle.tscn<>res://Characters/Worm.tscn<>res://Shapes/Block.tscn<>res://Shapes/Egg.tscn<>res://Characters/Player.tscn<>res://Shapes/Banana.tscn<>res://Shapes/Giant Block.tscn<>res://Shapes/Giant Block.gd<>res://Shapes/Cow.tscn<>res://PhysicalMaterial/pushable.tres<>res://Backgrounds/galaxy_faded.png<>res://Backgrounds/stars.png
+main.tscn::PackedScene::3893454315404059751::1732726061::0::1::::<><>::uid://dptjngmau5odt::::res://Assets/moon.0001.png<>res://Shapes/Pole.tscn<>res://Shapes/Rectangle.tscn<>res://Characters/Worm.tscn<>res://Shapes/Block.tscn<>res://Shapes/Egg.tscn<>res://Characters/Player.tscn<>res://Shapes/Banana.tscn<>res://Shapes/Giant Block.tscn<>res://Shapes/Giant Block.gd<>res://Shapes/Cow.tscn<>res://PhysicalMaterial/pushable.tres<>uid://sm0e70h4eapr::::res://Backgrounds/galaxy_faded.png<>uid://buqjwefk1ci5e::::res://Backgrounds/stars.png
 player.gd::GDScript::-1::1732722615::0::1::::<>CharacterBody2D<>::
 Wall.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/Wall.0001.png
-::res://Assets/::1732724169
+::res://Assets/::1732724195
 Bird.png::CompressedTexture2D::1519307997762258765::1717943112::1732722651::1::::<><>::
 Carry.png::CompressedTexture2D::5229792063688837718::1717943112::1732722652::1::::<><>::
 CarryArm.png::CompressedTexture2D::6609907703426865688::1717943112::1732722652::1::::<><>::
@@ -45,11 +45,12 @@ Worm.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/worm.png<>res
 ::res://Mockups/::1717943113
 ::res://PhysicalMaterial/::1717943113
 pushable.tres::PhysicsMaterial::-1::1732722615::0::1::::<><>::
-::res://Scripts/::1717943113
+::res://Scripts/::1732725465
+Camera.gd::GDScript::-1::1732724885::0::1::::<>Camera2D<>::
 pickup.gd::GDScript::-1::1732722615::0::1::::<>Node<>::
-player.gd::GDScript::-1::1732723095::0::1::::<>CharacterBody2D<>::
-pushable.gd::GDScript::-1::1732722615::0::1::::<>RigidBody2D<>::
-Worm.gd::GDScript::-1::1732723093::0::1::::<>CharacterBody2D<>::
+player.gd::GDScript::-1::1732725465::0::1::::<>CharacterBody2D<>::
+pushable.gd::GDScript::-1::1732725100::0::1::::<>RigidBody2D<>::
+Worm.gd::GDScript::-1::1732724442::0::1::::<>CharacterBody2D<>::
 ::res://Shapes/::1717943113
 Banana.tscn::PackedScene::-1::1732722616::0::1::::<><>::res://Assets/Game Objects.0001.png<>res://Scripts/pushable.gd
 Block.tscn::PackedScene::-1::1732722616::0::1::::<><>::res://Scripts/pushable.gd<>res://Assets/Game Objects.0001.png
