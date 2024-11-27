@@ -17,13 +17,13 @@ func _input(event):
 		picked = false
 		get_node("res://Characters/Player.tscn").canPick = true
 		if get_node("res://Characters/Player.tscn").sprite.flip_h == false:
-			apply_impulse(Vector2(), Vector2(90, -10))
+			apply_impulse(Vector2(90, -10), Vector2())
 		else:
-			apply_impulse(Vector2(), Vector2(-90, -10))
+			apply_impulse(Vector2(-90, -10), Vector2())
 	if Input.is_action_just_pressed("ui_throw") and picked == true:
 		picked = false
 		get_node("res://Characters/Player.tscn").canPick = true
 		if get_node("res://Characters/Player.tscn").sprite.flip_h == false:
-			apply_impulse(Vector2(), Vector2(150, -200))
+			apply_impulse(Vector2(150, -200), Vector2())
 		else:
-			apply_impulse(Vector2(), Vector2(-150, -200))
+			apply_impulse(Vector2(-150, -200), Vector2())

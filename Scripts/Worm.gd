@@ -1,7 +1,7 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
-export (int) var gravity = 4000
-var velocity = Vector2.ZERO
+@export var gravity: int = 4000
+var veloc = Vector2.ZERO
 var time_delta = 0
 var current_planet: Node
 
@@ -12,7 +12,7 @@ func _ready():
 	current_planet = planets[0]
 	_get_closest_planet(current_planet)
 	_start_closest_planet_timer()
-	$AnimatedSprite.play("Idle")
+	$AnimatedSprite2D.play("Idle")
 #func _process(delta):
 #	pass
 
@@ -28,11 +28,11 @@ func _ready():
 	#Physics2DServer.area_set_param(get_world_2d().space, Physics2DServer.AREA_PARAM_GRAVITY_VECTOR, gravity_dir.normalized())
 	
 	#current_planet.get_node("Orbit").gravity_vec = gravity_dir
-	#velocity.y += gravity * delta
+	#veloc.y += gravity * delta
 	
 	#var snap = transform.y * 128
-	#velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, PI/3)
-	#velocity = velocity.rotated(-rotation)
+	#veloc = move_and_slide_with_snap(veloc.rotated(rotation), snap, -transform.y, false, 2, PI/3)
+	#veloc = veloc.rotated(-rotation)
 
 func _get_closest_planet(smallest):
 	var new_smallest = smallest
@@ -46,13 +46,13 @@ func _get_closest_planet(smallest):
 			new_smallest = planet
 
 	if new_smallest != current_planet:
-		velocity.y = 1200
+		veloc.y = 1200
 		
 	current_planet = new_smallest
 
 func _start_closest_planet_timer():
 	var timer = Timer.new()
 	timer.wait_time = 0.1
-	timer.connect("timeout", self, "_get_closest_planet", [current_planet])
+	timer.connect("timeout", Callable(self, "_get_closest_planet").bind(current_planet))
 	add_child(timer)
 	timer.start()

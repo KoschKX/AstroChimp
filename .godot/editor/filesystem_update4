@@ -1,0 +1,6 @@
+res://default_env.tres
+res://main.tscn
+res://Scripts/pushable.gd
+res://Scripts/Worm.gd
+res://Scripts/player.gd
+res://Scripts/Camera.gd

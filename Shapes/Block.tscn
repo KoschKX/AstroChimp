@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/pushable.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Game Objects.0001.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Game Objects.0001.png" type="Texture2D" id=2]
 
 [sub_resource type="RectangleShape2D" id=70]
 extents = Vector2( 233.5, 267 )
@@ -19,13 +19,13 @@ script = ExtResource( 1 )
 position = Vector2( 3.5, 2 )
 shape = SubResource( 70 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( 3.65521, 7.29358 )
 scale = Vector2( 3.39569, 3.67867 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 212.28, 135.392, 160.88, 160.88 )
-region_filter_clip = true
+region_filter_clip_enabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
 

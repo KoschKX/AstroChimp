@@ -1,183 +1,162 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
-export (int) var speed = 1200
-export (int) var jump_force = -2500
-export (int) var booster_force = -3000
-export (int,0,100) var gravity_scale = 50
-export (int,0,200) var inertia = 100
+@export var speed: int = 1200
+@export var jump_force: int = -2500
+@export var booster_force: int = -3000
+@export var gravity_scale: float = 50.0
+@export var inertia: float = 100.0
 
-export (bool) var can_pick = true
+@export var can_pick: bool = true
 
-var gravity_dir
-
-var velocity = Vector2.ZERO
-var move_velocity = Vector2.ZERO
-var is_carrying = false
-var is_walking = false
-var is_running = false
-var is_jumping = false
-var is_pushing = false
-var is_grounded = false
-var is_onpushable = false
+var gravity_dir: Vector2
+var veloc: Vector2 = Vector2.ZERO
+var move_veloc: Vector2 = Vector2.ZERO
+var is_carrying: bool = false
+var is_walking: bool = false
+var is_running: bool = false
+var is_jumping: bool = false
+var is_pushing: bool = false
+var is_grounded: bool = false
+var is_onpushable: bool = false
 var planets: Array
 var current_planet: Node
 var current_orbit: Node
-var time_delta = 0
-var canPick = false
+var time_delta: float = 0.0
+var canPick: bool = false
 
-var debug_line = Vector2.ZERO
+var debug_line: Vector2 = Vector2.ZERO
 
-func _ready():
+func _ready() -> void:
 	planets = get_node("/root/MainLevel/Planets").get_children()
 	current_planet = planets[0]
 	current_orbit = current_planet.get_node("Orbit")
 	_find_nearest_planet(current_planet)
-	
-func get_input():
+
+func get_input() -> void:
 	canPick = true
 	is_walking = false
-	move_velocity.x = 0
+	move_veloc.x = 0
+
 	if Input.is_action_pressed("walk_right"):
-		move_velocity.x += speed
+		move_veloc.x += speed
 		is_walking = true
-		$AnimatedSprite.flip_h = false
+		$AnimatedSprite2D.flip_h = false
+
 		if Input.is_action_pressed("ui_run"):
-			move_velocity.x += speed *1.5
-			$AnimatedSprite.play("Run")
+			move_veloc.x += speed * 1.5
+			$AnimatedSprite2D.play("Run")
 			is_walking = false
 			is_running = true
-		else: 
-			$AnimatedSprite.play("Walk")	
-	elif Input.is_action_pressed("walk_left"):
-		move_velocity.x -= speed
-		$AnimatedSprite.flip_h = true
-		is_walking = true
-		if Input.is_action_pressed("ui_run"):
-			move_velocity.x -= speed *1.5
-			$AnimatedSprite.play("Run")
-			is_walking = false
-			is_running = true
-		else: 
-			$AnimatedSprite.play("Walk")
-	else:
-		$AnimatedSprite.play("Walk")
-		$AnimatedSprite.playing = false
-		is_walking = false
-		is_running = false
-		
-	if is_on_floor() == false:
-		if is_pushing:
-			$AnimatedSprite.play("Walk")
 		else:
-			$AnimatedSprite.play("Jump")
+			$AnimatedSprite2D.play("Walk")
+	elif Input.is_action_pressed("walk_left"):
+		move_veloc.x -= speed
+		$AnimatedSprite2D.flip_h = true
+		is_walking = true
+
+		if Input.is_action_pressed("ui_run"):
+			move_veloc.x -= speed * 1.5
+			$AnimatedSprite2D.play("Run")
+			is_walking = false
+			is_running = true
+		else:
+			$AnimatedSprite2D.play("Walk")
+	else:
+		$AnimatedSprite2D.play("Walk")
 		is_walking = false
 		is_running = false
-		
-	#else:
-		#$AnimatedSprite.play("Walk")
 
-const GRAVITY = 0.00000000000666726
-func newtonian_gravity(delta, obj_1, obj_2):
-	obj_1.velocity += (obj_2.global_transform.origin\
-		- obj_1.global_transform.origin).normalized()\
-		* GRAVITY * obj_2.mass\
-		/ pow((obj_2.global_transform.origin.\
-		distance_to(obj_1.global_transform.origin)), 2) * delta
-	obj_1.move_and_slide(obj_1.velocity, Vector2.DOWN)
+	if not is_on_floor():
+		if is_pushing:
+			$AnimatedSprite2D.play("Walk")
+		else:
+			$AnimatedSprite2D.play("Jump")
+		is_walking = false
+		is_running = false
 
-func _draw():
-	draw_line(Vector2(0,0), debug_line*1000, Color(255, 0, 0), 1)
-	
+const GRAVITY: float = 0.00000000000666726
 
-func getAxis(down, axis):
-	# GET AXIS BASED ON CENTER #
-	if axis==0:
-		return down.rotated(deg2rad(-90))
-	if axis==1:
+func newtonian_gravity(delta: float, obj_1: Node2D, obj_2: Node2D) -> void:
+	obj_1.veloc += (obj_2.global_position - obj_1.global_position).normalized() \
+		* GRAVITY * obj_2.mass / pow(obj_2.global_position.distance_to(obj_1.global_position), 2) * delta
+	obj_1.set_velocity(obj_1.veloc)
+	obj_1.set_up_direction(Vector2.DOWN)
+	obj_1.move_and_slide()
+	obj_1.veloc
+
+func _draw() -> void:
+	draw_line(Vector2.ZERO, debug_line * 1000, Color(1, 0, 0), 1)
+
+func getAxis(down: Vector2, axis: int) -> Vector2:
+	# GET AXIS BASED ON CENTER
+	if axis == 0:
+		return down.rotated(deg_to_rad(-90))
+	elif axis == 1:
 		return down
-		
-func _physics_process(delta):
+	return Vector2.ZERO  # Default return for invalid axis values
+
+func _physics_process(delta: float) -> void:
 	get_input()
-	
 	time_delta += delta
-	
-	# SET CENTER OF GRAVITY AND ROTATION #
-	var down = (current_orbit.gravity_vec - transform.origin).normalized() 
-	rotation = down.angle() - PI/2
 
-	is_pushing=false
-	is_onpushable=false
-	is_grounded=false
-	
-	# UNROTATED FLOOR NORMAL #
-	var floor_normal=get_floor_normal().rotated(-rotation)
-	
-	if !is_jumping and velocity:
-				
-		for c in get_slide_count():
+	# SET CENTER OF GRAVITY AND ROTATION
+	var down = (current_orbit.global_position - global_position).normalized()
+	rotation = down.angle() - PI / 2
+
+	is_pushing = false
+	is_onpushable = false
+	is_grounded = false
+
+	# UNROTATED FLOOR NORMAL
+	var floor_normal = get_floor_normal().rotated(-rotation)
+
+	if not is_jumping and veloc:
+		for c in range(get_slide_collision_count()):
 			var col = get_slide_collision(c)
-			if col.get_collider() is RigidBody2D && col.collider.is_in_group("Pushables"):
-				
-				# PUSH 
-				var cpos = col.position - col.collider.position;
-				var push_dir = position.direction_to(cpos)
-				var push_dist = col.normal.distance_to(push_dir);
-				#if push_dist < 1.5:
-				var push_force=inertia;
-				is_pushing=true
-				col.collider.apply_central_impulse(-col.normal * push_force)
-				#if move_velocity.x>0:
-					#col.collider.apply_central_impulse(getAxis(down,0) * push_force)
-				#elif move_velocity.x<0:
-					#col.collider.apply_central_impulse(-getAxis(down,0) * push_force)
-				#else:
-					#is_onpushable=true
+			if col.get_collider() is RigidBody2D and col.get_collider().is_in_group("Pushables"):
+				# PUSH
+				var push_force = inertia
+				is_pushing = true
+				col.get_collider().apply_central_impulse(-col.get_normal() * push_force)
 
-	if !is_on_wall():
-		#print("wall")
-		pass
+	# ADD GRAVITY
+	move_veloc.y += (current_orbit.gravity * delta) * gravity_scale
 
-	# ADD GRAVITY #
-	move_velocity.y+=(current_orbit.gravity * delta) * gravity_scale
-	
-	# ADD CONTROLLED MOVEMENT #
-	velocity = getAxis(down, 0) * move_velocity.x
-	velocity += getAxis(down, 1) * move_velocity.y
-	
-	# MOVE AND SLIDE # 
-	var snap = getAxis(down, 1) * 32 if !is_jumping else Vector2.ZERO
-	velocity = move_and_slide_with_snap(velocity, snap, -getAxis(down, 1), true, 4, deg2rad(50), false)
-	
-	# UPDATE MOVE AND SLIDE VELOCITY #
+	# ADD CONTROLLED MOVEMENT
+	veloc = getAxis(down, 0) * move_veloc.x
+	veloc += getAxis(down, 1) * move_veloc.y
+
+	# MOVE AND SLIDE
+	var snap = getAxis(down, 1) * 32 if not is_jumping else Vector2.ZERO
+	set_velocity(veloc)
+	set_up_direction(-getAxis(down, 1))
+	move_and_slide()
+
+	# UPDATE MOVE AND SLIDE VELOCITY
 	if is_on_floor():
-		move_velocity = velocity.rotated(-rotation)
-	
-	# DEBUG FEEDBACK # 
-	#debug_line=down.rotated(-rotation)
-	#update()
-	
+		move_veloc = veloc.rotated(-rotation)
+
+	# DEBUG FEEDBACK
 	if is_on_floor():
 		is_jumping = false
 		if Input.is_action_just_pressed("jump"):
 			is_jumping = true
-			move_velocity.y = jump_force
-			$AnimatedSprite.play("Jump")
+			move_veloc.y = jump_force
+			$AnimatedSprite2D.play("Jump")
 		else:
-			is_grounded=true
+			is_grounded = true
 	else:
 		if Input.is_action_just_pressed("jump"):
-			move_velocity.y += booster_force
-	
+			move_veloc.y += booster_force
 
-func _find_nearest_planet(smallest):
+func _find_nearest_planet(smallest: Node) -> void:
 	var new_smallest = smallest
-	var did_change = false
-	
-	if !is_jumping:
+
+	if not is_jumping:
 		return
-	
+
 	for planet in planets:
-		if !new_smallest:
+		if not new_smallest:
 			new_smallest = planet
 
 		if global_position.distance_to(planet.global_position) < global_position.distance_to(new_smallest.global_position):
@@ -185,6 +164,6 @@ func _find_nearest_planet(smallest):
 
 	if new_smallest != current_planet:
 		is_jumping = false
-		velocity.y = 1200
-		
+		veloc.y = 1200
+
 	current_planet = new_smallest

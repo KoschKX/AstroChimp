@@ -1,0 +1,62 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1732724183
+default_env.tres::Environment::-1::1732722615::0::1::::<><>::
+main2.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/moon.0001.png<>res://Shapes/Pole.tscn<>res://Shapes/Rectangle.tscn<>res://Characters/Worm.tscn<>res://Shapes/Block.tscn<>res://Shapes/Egg.tscn<>res://Characters/Player.tscn<>res://Shapes/Banana.tscn<>res://Shapes/Giant Block.tscn<>res://Shapes/Giant Block.gd<>res://Shapes/Cow.tscn
+main.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/moon.0001.png<>res://Shapes/Pole.tscn<>res://Shapes/Rectangle.tscn<>res://Characters/Worm.tscn<>res://Shapes/Block.tscn<>res://Shapes/Egg.tscn<>res://Characters/Player.tscn<>res://Shapes/Banana.tscn<>res://Shapes/Giant Block.tscn<>res://Shapes/Giant Block.gd<>res://Shapes/Cow.tscn<>res://PhysicalMaterial/pushable.tres<>res://Backgrounds/galaxy_faded.png<>res://Backgrounds/stars.png
+player.gd::GDScript::-1::1732722615::0::1::::<>CharacterBody2D<>::
+Wall.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/Wall.0001.png
+::res://Assets/::1732724169
+Bird.png::CompressedTexture2D::1519307997762258765::1717943112::1732722651::1::::<><>::
+Carry.png::CompressedTexture2D::5229792063688837718::1717943112::1732722652::1::::<><>::
+CarryArm.png::CompressedTexture2D::6609907703426865688::1717943112::1732722652::1::::<><>::
+Chimp1.png::CompressedTexture2D::5432809852825494214::1717943112::1732722652::1::::<><>::
+Chimp2.png::CompressedTexture2D::2064788472007921475::1717943112::1732722652::1::::<><>::
+Chimp3.png::CompressedTexture2D::3348593549861094966::1717943112::1732722652::1::::<><>::
+Chimp4.png::CompressedTexture2D::6820017272280539960::1717943112::1732722652::1::::<><>::
+Chimp.png::CompressedTexture2D::1103531039916326489::1717943112::1732722652::1::::<><>::
+ChimpA.png::CompressedTexture2D::1531464832965964230::1717943112::1732722652::1::::<><>::
+Circle.png::CompressedTexture2D::7692394379896132404::1717943112::1732722652::1::::<><>::
+Dog.png::CompressedTexture2D::2823464780615581634::1717943112::1732722652::1::::<><>::
+Fly.0058.png::CompressedTexture2D::2546779153489237100::1717943112::1732722652::1::::<><>::
+Game Objects.0001.png::CompressedTexture2D::7322396724966772228::1717943112::1732722653::1::::<><>::
+Lizard.png::CompressedTexture2D::255856068050646643::1717943112::1732722653::1::::<><>::
+moon.0001.png::CompressedTexture2D::8251887884938262497::1717943112::1732722653::1::::<><>::
+NewWalk.png::CompressedTexture2D::1752286734366270283::1717943112::1732722653::1::::<><>::
+player_tilesheet.png::CompressedTexture2D::6100646025535092468::1717943112::1732722651::1::::<><>::
+Run.png::CompressedTexture2D::3792984631024060103::1717943112::1732722651::1::::<><>::
+SpaceMan.0001.png::CompressedTexture2D::936175222763991721::1717943112::1732722652::1::::<><>::
+Spaceman.png::CompressedTexture2D::4970372879074397852::1717943112::1732722651::1::::<><>::
+Wall.0001.png::CompressedTexture2D::6176445406462858356::1717943112::1732722651::1::::<><>::
+worm.png::CompressedTexture2D::4703667578824041460::1717943112::1732722663::1::::<><>::
+::res://Backgrounds/::1732722678
+galaxy.jpg::CompressedTexture2D::7431767258046642988::1717943113::1732722678::1::::<><>::
+galaxy_faded.png::CompressedTexture2D::1289698506252355871::1717943113::1732722677::1::::<><>::
+galaxy_seamless.jpg::CompressedTexture2D::3051459634203044695::1717943113::1732722649::1::::<><>::
+moon_circular.jpg::CompressedTexture2D::8040787412287804233::1717943113::1732722676::1::::<><>::
+stars.png::CompressedTexture2D::3823813559226121552::1717943113::1732722643::1::::<><>::
+::res://Characters/::1732722651
+chimp_jump-Sheet.png::CompressedTexture2D::6230766231473672262::1717943113::1732722644::1::::<><>::
+chimp_run-Sheet.png::CompressedTexture2D::6229662332710905749::1717943113::1732722644::1::::<><>::
+chimp_stand-Sheet.png::CompressedTexture2D::8951462397147529045::1717943113::1732722643::1::::<><>::
+chimp_walk-Sheet.png::CompressedTexture2D::2163377102562467932::1717943113::1732722643::1::::<><>::
+Cow.png::CompressedTexture2D::1543581864769231121::1717943113::1732722651::1::::<><>::
+Player.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/Spaceman.png<>res://Scripts/player.gd<>res://Characters/chimp_jump-Sheet.png<>res://Characters/chimp_run-Sheet.png<>res://Characters/chimp_walk-Sheet.png<>res://Characters/chimp_stand-Sheet.png
+Worm.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Assets/worm.png<>res://Scripts/Worm.gd
+::res://Mockups/::1717943113
+::res://PhysicalMaterial/::1717943113
+pushable.tres::PhysicsMaterial::-1::1732722615::0::1::::<><>::
+::res://Scripts/::1717943113
+pickup.gd::GDScript::-1::1732722615::0::1::::<>Node<>::
+player.gd::GDScript::-1::1732723095::0::1::::<>CharacterBody2D<>::
+pushable.gd::GDScript::-1::1732722615::0::1::::<>RigidBody2D<>::
+Worm.gd::GDScript::-1::1732723093::0::1::::<>CharacterBody2D<>::
+::res://Shapes/::1717943113
+Banana.tscn::PackedScene::-1::1732722616::0::1::::<><>::res://Assets/Game Objects.0001.png<>res://Scripts/pushable.gd
+Block.tscn::PackedScene::-1::1732722616::0::1::::<><>::res://Scripts/pushable.gd<>res://Assets/Game Objects.0001.png
+Cow.tscn::PackedScene::-1::1732722615::0::1::::<><>::res://Characters/Cow.png<>res://Scripts/pushable.gd
+Egg.gd::GDScript::-1::1732722616::0::1::::<>RigidBody2D<>::
+Egg.tscn::PackedScene::-1::1732722616::0::1::::<><>::res://Assets/Circle.png<>res://Scripts/pushable.gd
+Giant Block.gd::GDScript::-1::1732722616::0::1::::<>RigidBody2D<>::
+Giant Block.tscn::PackedScene::-1::1732722616::0::1::::<><>::res://Assets/Game Objects.0001.png<>res://Scripts/pushable.gd
+Pole.tscn::PackedScene::-1::1732722616::0::1::::<><>::res://Assets/Game Objects.0001.png<>res://Scripts/pushable.gd
+Rectangle.tscn::PackedScene::-1::1732722616::0::1::::<><>::res://Scripts/pushable.gd<>res://Assets/Game Objects.0001.png

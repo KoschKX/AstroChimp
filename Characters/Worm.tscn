@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=2]
 
-[ext_resource path="res://Assets/worm.png" type="Texture" id=1]
+[ext_resource path="res://Assets/worm.png" type="Texture2D" id=1]
 [ext_resource path="res://Scripts/Worm.gd" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=25]
@@ -191,11 +191,11 @@ animations = [ {
 "speed": 30.0
 } ]
 
-[node name="Worm" type="KinematicBody2D"]
+[node name="Worm" type="CharacterBody2D"]
 scale = Vector2( 20, 20 )
 script = ExtResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2( -83.7, -150.3 )
 scale = Vector2( 0.31693, 0.31693 )
 frames = SubResource( 61 )
@@ -206,4 +206,4 @@ flip_h = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 72.5, 364.5 )
-polygon = PoolVector2Array( 116.268, -369.277, 86.2075, -362.034, -144.421, -367.317, -168.273, -435.335, -232.805, -508.635, -313.13, -508.526, -376.9, -523.012, -354.626, -567.068, -317.323, -584.658, -278.876, -583.895, -235.691, -578.395, -197.298, -562.711, -170.015, -526.66, -142.079, -490.01, -119.533, -464.687, -103.686, -424.879, -46.9412, -420.086, -7.4052, -408.432, 21.2939, -397.377, 66.3303, -379.079, 100.996, -374.569, 133.913, -404.021 )
+polygon = PackedVector2Array( 116.268, -369.277, 86.2075, -362.034, -144.421, -367.317, -168.273, -435.335, -232.805, -508.635, -313.13, -508.526, -376.9, -523.012, -354.626, -567.068, -317.323, -584.658, -278.876, -583.895, -235.691, -578.395, -197.298, -562.711, -170.015, -526.66, -142.079, -490.01, -119.533, -464.687, -103.686, -424.879, -46.9412, -420.086, -7.4052, -408.432, 21.2939, -397.377, 66.3303, -379.079, 100.996, -374.569, 133.913, -404.021 )

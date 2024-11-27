@@ -1,8 +1,8 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
-export (int) var speed = 1200
-export (int) var jump_speed = -1800
-export (int) var gravity = 4000
+@export var speed: int = 1200
+@export var jump_speed: int = -1800
+@export var gravity: int = 4000
 
 var velocity = Vector2.ZERO
 var is_jumping = false
@@ -22,14 +22,14 @@ func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("walk_right"):
 		velocity.x += speed
-		$AnimatedSprite.play()
-		$AnimatedSprite.flip_h = false
+		$AnimatedSprite2D.play()
+		$AnimatedSprite2D.flip_h = false
 	elif Input.is_action_pressed("walk_left"):
 		velocity.x -= speed
-		$AnimatedSprite.play()
-		$AnimatedSprite.flip_h = true
+		$AnimatedSprite2D.play()
+		$AnimatedSprite2D.flip_h = true
 	else:
-		$AnimatedSprite.playing = false
+		$AnimatedSprite2D.playing = false
 
 
 func _physics_process(delta):
@@ -42,7 +42,14 @@ func _physics_process(delta):
 	
 	velocity.y += gravity * delta
 	var snap = transform.y * 128 if !is_jumping else Vector2.ZERO
-	velocity = move_and_slide_with_snap(velocity.rotated(rotation), snap, -transform.y, false, 2, PI/3)
+	set_velocity(velocity.rotated(rotation))
+	# TODOConverter3To4 looks that snap in Godot 4 is float, not vector like in Godot 3 - previous value `snap`
+	set_up_direction(-transform.y)
+	set_floor_stop_on_slope_enabled(false)
+	set_max_slides(2)
+	set_floor_max_angle(PI/3)
+	move_and_slide()
+	velocity = velocity
 	velocity = velocity.rotated(-rotation)
 
 	if is_on_floor():
