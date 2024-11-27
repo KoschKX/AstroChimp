@@ -1,5 +1,6 @@
 res://default_env.tres
 res://main.tscn
+res://Scripts/player.gd
 res://Characters/Player.tscn
 res://Shapes/Cow.tscn
-res://Scripts/player.gd
+res://player.gd

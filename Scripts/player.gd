@@ -131,6 +131,7 @@ func _physics_process(delta: float) -> void:
 	# MOVE AND SLIDE
 	var snap = getAxis(down, 1) * 32 if not is_jumping else Vector2.ZERO
 	set_velocity(veloc)
+	#veloc = veloc.normalized() * speed;
 	set_up_direction(-getAxis(down, 1))
 	move_and_slide()
 
