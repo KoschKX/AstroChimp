@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-@export var speed: int = 50
+@export var speed: int = 500
 @export var jump_force: int = -1000
-@export var booster_force: int = -3000
+@export var booster_force: int = -2000
 @export var gravity_scale: float = 50.0
 @export var inertia: float = 1.0
 

@@ -46,8 +46,7 @@ polygon = PackedVector2Array(293.145, 143.411, 295.759, 171.511, 285.303, 202.82
 [node name="Player" parent="." instance=ExtResource("7")]
 position = Vector2(0, -7718)
 scale = Vector2(5, 5)
-speed = 1800
-booster_force = -2000
+speed = 500
 gravity_scale = 1.0
 inertia = 1.0
 
