@@ -21,7 +21,9 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if picked and not thrown:
 		var sprite = player.get_node("AnimatedSprite2D") as AnimatedSprite2D
-		var rect = sprite.sprite_frames.get_frame(sprite.animation, sprite.frame).get_size() * (player.scale / 2)
+		#var rect = sprite.sprite_frames.get_frame(sprite.animation, sprite.frame).get_size() * (player.scale / 2)
+		var rect = sprite.get_sprite_frames().get_frame_texture(sprite.animation, sprite.frame).get_size() * (player.scale / 2)
+
 		self.rotation = player.rotation
 		var offset = Vector2(rect.x * 0.5, 0).rotated(player.rotation)
 		if sprite.flip_h:

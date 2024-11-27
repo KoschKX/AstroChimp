@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
-@export var speed: int = 500
-@export var jump_force: int = -1000
-@export var booster_force: int = -2000
+@export var speed: int = 1200
+@export var run_boost: int = 200
+@export var jump_force: int = -2500
+@export var booster_force: int = -3000
 @export var gravity_scale: float = 50.0
-@export var inertia: float = 1.0
+@export var inertia: float = 100
 
 @export var can_pick: bool = true
 
@@ -36,14 +37,12 @@ func get_input() -> void:
 	canPick = true
 	is_walking = false
 	move_veloc.x = 0
-
 	if Input.is_action_pressed("walk_right"):
 		move_veloc.x += speed
 		is_walking = true
 		$AnimatedSprite2D.flip_h = false
-
 		if Input.is_action_pressed("ui_run"):
-			move_veloc.x += speed * 1.5
+			move_veloc.x += run_boost
 			$AnimatedSprite2D.play("Run")
 			is_walking = false
 			is_running = true
@@ -53,16 +52,16 @@ func get_input() -> void:
 		move_veloc.x -= speed
 		$AnimatedSprite2D.flip_h = true
 		is_walking = true
-
 		if Input.is_action_pressed("ui_run"):
-			move_veloc.x -= speed * 1.5
+			move_veloc.x -= run_boost
 			$AnimatedSprite2D.play("Run")
 			is_walking = false
 			is_running = true
 		else:
 			$AnimatedSprite2D.play("Walk")
 	else:
-		$AnimatedSprite2D.play("Walk")
+		#$AnimatedSprite2D.play("Walk")
+		$AnimatedSprite2D.stop()
 		is_walking = false
 		is_running = false
 
@@ -74,11 +73,10 @@ func get_input() -> void:
 		is_walking = false
 		is_running = false
 
-const GRAVITY: float = 0.00000000000666726
-
+const GRAVITY: float = 0.00000000000666726;
 func newtonian_gravity(delta: float, obj_1: Node2D, obj_2: Node2D) -> void:
 	obj_1.veloc += (obj_2.global_position - obj_1.global_position).normalized() \
-		* GRAVITY * obj_2.mass / pow(obj_2.global_position.distance_to(obj_1.global_position), 2) * delta
+		* (GRAVITY) * obj_2.mass / pow(obj_2.global_position.distance_to(obj_1.global_position), 2) * delta
 	obj_1.set_velocity(obj_1.veloc)
 	obj_1.set_up_direction(Vector2.DOWN)
 	obj_1.move_and_slide()
@@ -115,6 +113,10 @@ func _physics_process(delta: float) -> void:
 			var col = get_slide_collision(c)
 			if col.get_collider() is RigidBody2D and col.get_collider().is_in_group("Pushables"):
 				# PUSH
+				var cpos = col.get_position() - col.get_collider().position;
+				var push_dir = position.direction_to(cpos)
+				var push_dist = col.get_normal().distance_to(push_dir);
+
 				var push_force = inertia
 				is_pushing = true
 				col.get_collider().apply_central_impulse(-col.get_normal() * push_force)
@@ -151,6 +153,7 @@ func _physics_process(delta: float) -> void:
 
 func _find_nearest_planet(smallest: Node) -> void:
 	var new_smallest = smallest
+	var did_change = false
 
 	if not is_jumping:
 		return

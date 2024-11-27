@@ -1,25 +1,24 @@
-[gd_scene load_steps=16 format=3 uid="uid://bvqavhbicxdnj"]
+[gd_scene load_steps=16 format=3 uid="uid://2x86bj1wkths"]
 
-[ext_resource type="Texture2D" uid="uid://dptjngmau5odt" path="res://Assets/moon.0001.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://ckg1bx5nepc7y" path="res://Assets/moon.0001.png" id="1"]
 [ext_resource type="PackedScene" path="res://Shapes/Pole.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://Shapes/Rectangle.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://Characters/Worm.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://Shapes/Block.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://Shapes/Egg.tscn" id="6"]
-[ext_resource type="PackedScene" uid="uid://d03ntisfcp5wv" path="res://Characters/Player.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://bpfughbkmgkr1" path="res://Characters/Player.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://Shapes/Banana.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://Shapes/Giant Block.tscn" id="9"]
 [ext_resource type="Script" path="res://Shapes/Giant Block.gd" id="10"]
-[ext_resource type="PackedScene" uid="uid://yjd0dje3744w" path="res://Shapes/Cow.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://Shapes/Cow.tscn" id="11"]
 [ext_resource type="PhysicsMaterial" path="res://PhysicalMaterial/pushable.tres" id="12"]
-[ext_resource type="Texture2D" uid="uid://sm0e70h4eapr" path="res://Backgrounds/galaxy_faded.png" id="13"]
-[ext_resource type="Texture2D" uid="uid://buqjwefk1ci5e" path="res://Backgrounds/stars.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://boc6klkgg1sck" path="res://Backgrounds/galaxy_faded.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://0hjkril7muko" path="res://Backgrounds/stars.png" id="14"]
 
 [sub_resource type="CircleShape2D" id="14"]
 radius = 11722.8
 
 [node name="MainLevel" type="Node2D"]
-scale = Vector2(0.1, 0.1)
 
 [node name="Planets" type="Node2D" parent="."]
 position = Vector2(17, 0)
@@ -30,7 +29,13 @@ texture = ExtResource("1")
 
 [node name="Orbit" type="Area2D" parent="Planets/Planet"]
 scale = Vector2(0.05, 0.05)
+gravity_space_override = 3
 gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 98.0
+linear_damp_space_override = 3
+angular_damp_space_override = 3
 
 [node name="OrbitRadius" type="CollisionShape2D" parent="Planets/Planet/Orbit"]
 shape = SubResource("14")
@@ -46,9 +51,8 @@ polygon = PackedVector2Array(293.145, 143.411, 295.759, 171.511, 285.303, 202.82
 [node name="Player" parent="." instance=ExtResource("7")]
 position = Vector2(0, -7718)
 scale = Vector2(5, 5)
-speed = 500
-gravity_scale = 1.0
-inertia = 1.0
+floor_constant_speed = true
+speed = 1800
 
 [node name="Cow" parent="." groups=["Pushables"] instance=ExtResource("11")]
 position = Vector2(3065, -6814)
