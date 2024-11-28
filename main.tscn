@@ -21,7 +21,6 @@ radius = 11722.8
 [node name="MainLevel" type="Node2D"]
 
 [node name="Planets" type="Node2D" parent="."]
-position = Vector2(17, 0)
 
 [node name="Planet" type="Area2D" parent="Planets"]
 gravity_space_override = 3
@@ -48,7 +47,9 @@ polygon = PackedVector2Array(293.145, 143.411, 295.759, 171.511, 285.303, 202.82
 shape = SubResource("14")
 
 [node name="Player" parent="." instance=ExtResource("7")]
+physics_interpolation_mode = 1
 position = Vector2(0, -7718)
+slide_on_ceiling = true
 speed = 2500
 run_boost = 1200
 inertia = 1.0

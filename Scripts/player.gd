@@ -99,7 +99,7 @@ func _physics_process(delta: float) -> void:
 
 	# SET CENTER OF GRAVITY AND ROTATION
 	var down = (current_orbit.global_position - global_position).normalized()
-	rotation = down.angle() - PI / 2
+	rotation = down.angle() - PI * 0.5
 
 	is_pushing = false
 	is_onpushable = false
@@ -139,7 +139,9 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		move_veloc = veloc.rotated(-rotation)
 
-	# DEBUG FEEDBACK
+	# DEBUG FEEDBACK # 
+	debug_line=down.rotated(-rotation)
+	
 	if is_on_floor():
 		is_jumping = false
 		if Input.is_action_just_pressed("jump"):
