@@ -52,7 +52,8 @@ polygon = PackedVector2Array(293.145, 143.411, 295.759, 171.511, 285.303, 202.82
 position = Vector2(0, -7718)
 scale = Vector2(5, 5)
 floor_constant_speed = true
-speed = 1800
+speed = 2500
+run_boost = 1000
 
 [node name="Cow" parent="." groups=["Pushables"] instance=ExtResource("11")]
 position = Vector2(3065, -6814)

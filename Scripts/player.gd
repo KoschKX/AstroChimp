@@ -60,7 +60,7 @@ func get_input() -> void:
 		else:
 			$AnimatedSprite2D.play("Walk")
 	else:
-		#$AnimatedSprite2D.play("Walk")
+		$AnimatedSprite2D.play("Walk")
 		$AnimatedSprite2D.stop()
 		is_walking = false
 		is_running = false
