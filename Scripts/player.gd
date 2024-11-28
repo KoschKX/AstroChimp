@@ -115,7 +115,8 @@ func _physics_process(delta: float) -> void:
 		#rotation = move_toward(rotation,lastFloorNormal.angle() - PI * 0.5,2*delta)
 	
 	# UNROTATED FLOOR NORMAL
-	var floor_normal = get_floor_normal()
+	var floor_normal:Vector2 = get_floor_normal()
+	var floor_normal_angle:float=floor_normal.angle_to(-down.rotated(-PI * 0.5))
 	
 	#debug_line=get_floor_normal()*
 
@@ -135,11 +136,10 @@ func _physics_process(delta: float) -> void:
 	# ADD GRAVITY
 	move_veloc.y += (current_orbit.gravity * delta) * gravity_scale
 
-	#var newRot: Quaternion = new Quaternion(Vector2.Up, planetDirection);
-	#GlobalRotation = newRot.GetEuler();
+	set_up_direction(-getAxis(down, 1))
 	
 	# ADD CONTROLLED MOVEMENT
-	var floor_normal_angle:float=floor_normal.angle()
+	print(str(abs(rad_to_deg(-floor_normal_angle))) +" : "+str(abs(rad_to_deg(-floor_max_angle))))
 	if is_on_floor() and abs(-floor_normal_angle)>abs(-floor_max_angle):
 		veloc = getAxis(-floor_normal, 0) * move_veloc.x
 		veloc += getAxis(-floor_normal, 1) * move_veloc.y
@@ -148,13 +148,7 @@ func _physics_process(delta: float) -> void:
 		veloc += getAxis(down, 1) * move_veloc.y
 
 	# MOVE AND SLIDE
-	var snap = getAxis(down, 1) * 32 if not is_jumping else Vector2.ZERO
 	set_velocity(veloc)
-	#veloc = veloc.normalized() * speed;
-	#floor_snap_length=snap
-	set_up_direction(-getAxis(down, 1))
-	#set_floor_snap_length(5)
-	#set_floor_max_angle(deg_to_rad(rotation+90))
 	apply_floor_snap()
 	move_and_slide()
 
