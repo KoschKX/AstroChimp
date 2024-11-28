@@ -134,34 +134,42 @@ func _physics_process(delta: float) -> void:
 				col.get_collider().apply_central_impulse(-col.get_normal() * push_force)
 
 	# ADD GRAVITY
-	move_veloc.y += (current_orbit.gravity * delta) * gravity_scale
+	
 
 	set_up_direction(-getAxis(down, 1))
 	
+	var snapping:bool = false
+	
+	set_velocity(veloc)
+	
 	# ADD CONTROLLED MOVEMENT
-	print(str(abs(rad_to_deg(-floor_normal_angle))) +" : "+str(abs(rad_to_deg(-floor_max_angle))))
-	if is_on_floor() and abs(-floor_normal_angle)>abs(-floor_max_angle):
+	print(str(abs(rad_to_deg(-floor_normal_angle))) +" : "+str(abs(rad_to_deg(-wall_min_slide_angle)))+"-"+str(abs(rad_to_deg(-floor_max_angle))))
+	if not is_jumping and  is_on_floor() and abs(-floor_normal_angle)>abs(-floor_max_angle):
+		move_veloc.y += (-floor_normal.y * delta) * gravity_scale
 		veloc = getAxis(-floor_normal, 0) * move_veloc.x
 		veloc += getAxis(-floor_normal, 1) * move_veloc.y
+		snapping=true
 	else:
+		move_veloc.y += (current_orbit.gravity * delta) * gravity_scale
 		veloc = getAxis(down, 0) * move_veloc.x
 		veloc += getAxis(down, 1) * move_veloc.y
 
 	# MOVE AND SLIDE
-	set_velocity(veloc)
-	apply_floor_snap()
+	if snapping:
+		apply_floor_snap()
+		
 	move_and_slide()
 
 	# UPDATE MOVE AND SLIDE VELOCITY
-	if is_on_floor():
-		move_veloc = veloc.rotated(-rotation)
+	#if is_on_floor():
+		#move_veloc = veloc.rotated(-rotation)
 
 	# DEBUG FEEDBACK # 
 	#debug_line=down.rotated(-rotation)
-	debug_line=floor_down
+	debug_line=down
 	#print(debug_line)
 	
-	if is_on_floor():
+	if is_on_floor() or snapping:
 		is_jumping = false
 		if Input.is_action_just_pressed("jump"):
 			is_jumping = true
