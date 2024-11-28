@@ -63,7 +63,6 @@ floor_snap_length = 32.0
 safe_margin = 0.1
 speed = 2500
 run_boost = 1200
-inertia = 1.0
 
 [node name="Cow" parent="." groups=["Pushables"] instance=ExtResource("11")]
 position = Vector2(3065, -6814)
