@@ -660,16 +660,18 @@ floor_block_on_wall = false
 platform_on_leave = 2
 script = ExtResource("2")
 speed = 1600
+gravity_scale = 1.0
 inertia = 20.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.409883, -17.625)
-scale = Vector2(0.570606, 0.570606)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("4")
 animation = &"Run"
 speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
 shape = SubResource("5")
 one_way_collision_margin = 0.0
 
@@ -680,11 +682,10 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(8.81251, 7.37791)
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(10, 10)
 shape = SubResource("5")
 one_way_collision_margin = 0.0

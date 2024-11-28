@@ -49,12 +49,9 @@ shape = SubResource("14")
 
 [node name="Player" parent="." instance=ExtResource("7")]
 position = Vector2(0, -7718)
-scale = Vector2(5, 5)
-floor_constant_speed = true
-floor_snap_length = 0.0
 speed = 2500
 run_boost = 1200
-gravity_scale = 1.0
+inertia = 1.0
 
 [node name="Cow" parent="." groups=["Pushables"] instance=ExtResource("11")]
 position = Vector2(3065, -6814)
