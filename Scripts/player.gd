@@ -30,7 +30,7 @@ var debug_line: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	planets = get_node("/root/MainLevel/Planets").get_children()
 	current_planet = planets[0]
-	current_orbit = current_planet.get_node("Orbit")
+	current_orbit = current_planet
 	_find_nearest_planet(current_planet)
 
 func get_input() -> void:
