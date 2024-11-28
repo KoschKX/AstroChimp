@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var booster_force: int = -3000
 @export var gravity_scale: float = 50.0
 @export var inertia: float = 100
+@export var snap_distance: float = 32.0  # Max snapping distance
+
 
 @export var can_pick: bool = true
 
@@ -24,6 +26,8 @@ var current_planet: Node
 var current_orbit: Node
 var time_delta: float = 0.0
 var canPick: bool = false
+
+var lastFloorNormal;
 
 var debug_line: Vector2 = Vector2.ZERO
 
@@ -83,7 +87,7 @@ func newtonian_gravity(delta: float, obj_1: Node2D, obj_2: Node2D) -> void:
 	obj_1.veloc
 
 func _draw() -> void:
-	draw_line(Vector2.ZERO, debug_line * 1000, Color(1, 0, 0), 1)
+	draw_line(Vector2.ZERO, debug_line * 5000, Color(1, 0, 0), 1)
 
 func getAxis(down: Vector2, axis: int) -> Vector2:
 	# GET AXIS BASED ON CENTER
@@ -99,14 +103,21 @@ func _physics_process(delta: float) -> void:
 
 	# SET CENTER OF GRAVITY AND ROTATION
 	var down = (current_orbit.global_position - global_position).normalized()
-	rotation = down.angle() - PI * 0.5
-
+	var floor_down = Vector2(cos(get_floor_angle()), sin(get_floor_angle()));
+	#rotation = down.angle() - PI * 0.5
+	rotation = down.rotated(-PI * 0.5).angle()
+	
 	is_pushing = false
 	is_onpushable = false
 	is_grounded = false
-
+		
+	#if lastFloorNormal:
+		#rotation = move_toward(rotation,lastFloorNormal.angle() - PI * 0.5,2*delta)
+	
 	# UNROTATED FLOOR NORMAL
-	var floor_normal = get_floor_normal().rotated(-rotation)
+	var floor_normal = get_floor_normal()
+	
+	#debug_line=get_floor_normal()*
 
 	if not is_jumping and veloc:
 		for c in range(get_slide_collision_count()):
@@ -124,15 +135,27 @@ func _physics_process(delta: float) -> void:
 	# ADD GRAVITY
 	move_veloc.y += (current_orbit.gravity * delta) * gravity_scale
 
+	#var newRot: Quaternion = new Quaternion(Vector2.Up, planetDirection);
+	#GlobalRotation = newRot.GetEuler();
+	
 	# ADD CONTROLLED MOVEMENT
-	veloc = getAxis(down, 0) * move_veloc.x
-	veloc += getAxis(down, 1) * move_veloc.y
+	var floor_normal_angle:float=floor_normal.angle()
+	if is_on_floor() and abs(-floor_normal_angle)>abs(-floor_max_angle):
+		veloc = getAxis(-floor_normal, 0) * move_veloc.x
+		veloc += getAxis(-floor_normal, 1) * move_veloc.y
+	else:
+		veloc = getAxis(down, 0) * move_veloc.x
+		veloc += getAxis(down, 1) * move_veloc.y
 
 	# MOVE AND SLIDE
 	var snap = getAxis(down, 1) * 32 if not is_jumping else Vector2.ZERO
 	set_velocity(veloc)
 	#veloc = veloc.normalized() * speed;
+	#floor_snap_length=snap
 	set_up_direction(-getAxis(down, 1))
+	#set_floor_snap_length(5)
+	#set_floor_max_angle(deg_to_rad(rotation+90))
+	apply_floor_snap()
 	move_and_slide()
 
 	# UPDATE MOVE AND SLIDE VELOCITY
@@ -140,7 +163,9 @@ func _physics_process(delta: float) -> void:
 		move_veloc = veloc.rotated(-rotation)
 
 	# DEBUG FEEDBACK # 
-	debug_line=down.rotated(-rotation)
+	#debug_line=down.rotated(-rotation)
+	debug_line=floor_down
+	#print(debug_line)
 	
 	if is_on_floor():
 		is_jumping = false
@@ -154,6 +179,8 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("jump"):
 			move_veloc.y += booster_force
 
+
+	
 func _find_nearest_planet(smallest: Node) -> void:
 	var new_smallest = smallest
 	var did_change = false
