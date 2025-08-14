@@ -143,7 +143,7 @@ func _physics_process(delta: float) -> void:
 	set_velocity(veloc)
 	
 	# ADD CONTROLLED MOVEMENT
-	print(str(abs(rad_to_deg(-floor_normal_angle))) +" : "+str(abs(rad_to_deg(-wall_min_slide_angle)))+"-"+str(abs(rad_to_deg(-floor_max_angle))))
+	# print(str(abs(rad_to_deg(-floor_normal_angle))) +" : "+str(abs(rad_to_deg(-wall_min_slide_angle)))+"-"+str(abs(rad_to_deg(-floor_max_angle))))
 	if not is_jumping and  is_on_floor() and abs(-floor_normal_angle)>abs(-floor_max_angle):
 		move_veloc.y += (-floor_normal.y * delta) * gravity_scale
 		veloc = getAxis(-floor_normal, 0) * move_veloc.x
@@ -165,8 +165,8 @@ func _physics_process(delta: float) -> void:
 		#move_veloc = veloc.rotated(-rotation)
 
 	# DEBUG FEEDBACK # 
-	#debug_line=down.rotated(-rotation)
-	debug_line=down
+	# debug_line=down.rotated(-rotation)
+	#debug_line=down
 	#print(debug_line)
 	
 	if is_on_floor() or snapping:
