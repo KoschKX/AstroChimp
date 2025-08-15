@@ -12,8 +12,8 @@
 [ext_resource type="Script" path="res://Shapes/Giant Block.gd" id="10"]
 [ext_resource type="PackedScene" uid="uid://b7i8scx64187s" path="res://Shapes/Cow.tscn" id="11"]
 [ext_resource type="PhysicsMaterial" path="res://PhysicalMaterial/pushable.tres" id="12"]
-[ext_resource type="Texture2D" uid="uid://boc6klkgg1sck" path="res://Backgrounds/galaxy_faded.png" id="13"]
 [ext_resource type="Texture2D" uid="uid://0hjkril7muko" path="res://Backgrounds/stars.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://bxq83br40kftm" path="res://Backgrounds/galaxy_faded.jpg" id="14_gj8by"]
 
 [sub_resource type="CircleShape2D" id="14"]
 radius = 11722.8
@@ -148,4 +148,4 @@ offset = Vector2(-226.542, 248.62)
 z_index = -5
 position = Vector2(-33, 44)
 scale = Vector2(2.56181, 2.56181)
-texture = ExtResource("13")
+texture = ExtResource("14_gj8by")
